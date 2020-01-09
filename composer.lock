@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef2aa649992ffd064940669ecfc2a3ac",
+    "content-hash": "f49ee34fce421539d5af2963ea114c00",
     "packages": [
         {
             "name": "justinrainbow/json-schema",
@@ -1257,45 +1257,6 @@
                 "response"
             ],
             "time": "2018-10-30T17:12:04+00:00"
-        },
-        {
-            "name": "swaggest/json-diff",
-            "version": "v3.7.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/swaggest/json-diff.git",
-                "reference": "fb13f6f7b12b985e2b99877c3604ce904b4fdd7a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/swaggest/json-diff/zipball/fb13f6f7b12b985e2b99877c3604ce904b4fdd7a",
-                "reference": "fb13f6f7b12b985e2b99877c3604ce904b4fdd7a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.23"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Swaggest\\JsonDiff\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Viacheslav Poturaev",
-                    "email": "vearutop@gmail.com"
-                }
-            ],
-            "description": "JSON diff/rearrange/patch/pointer library for PHP",
-            "time": "2019-10-23T09:36:24+00:00"
         }
     ],
     "packages-dev": [

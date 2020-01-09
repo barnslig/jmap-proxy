@@ -11,7 +11,7 @@ class Invocation implements JsonSerializable
     /** @var string */
     private $name = '';
 
-    /** @var object */
+    /** @var Map */
     private $arguments = null;
 
     /** @var string */
@@ -20,7 +20,7 @@ class Invocation implements JsonSerializable
     public function __construct(string $name, object $arguments, string $methodCallId)
     {
         $this->name = $name;
-        $this->arguments = $arguments;
+        $this->arguments = new Map(json_decode(json_encode($arguments), true));
         $this->methodCallId = $methodCallId;
     }
 
@@ -29,7 +29,7 @@ class Invocation implements JsonSerializable
         return $this->name;
     }
 
-    public function getArguments(): object
+    public function getArguments(): Map
     {
         return $this->arguments;
     }
@@ -63,6 +63,31 @@ class Invocation implements JsonSerializable
         $new = clone $this;
         $new->name = $name;
         return $new;
+    }
+
+    /**
+     * Resolve result references based on a Vector of Invocations
+     *
+     * See 3.7 References to Previous Method Results of the Core spec
+     * @param Vector $responses Vector of already computed Invocation response instances
+     */
+    public function resolveResultReferences(Vector $responses)
+    {
+        $mArgs = $this->getArguments();
+        // TODO do we need to deep-traverse the arguments?
+        foreach ($mArgs as $key => $value) {
+            if (mb_substr($key, 0, 1) !== "#") {
+                continue;
+            }
+
+            $key = mb_substr($key, 1);
+            if ($mArgs->hasKey($key)) {
+                throw new \RuntimeException("invalidArguments: The key '" . $key . "' is contained both in normal and referenced form.");
+            }
+
+            $ref = new ResultReference((object)$value);
+            $this->arguments->put($key, $ref->resolve($responses));
+        }
     }
 
     public function jsonSerialize()

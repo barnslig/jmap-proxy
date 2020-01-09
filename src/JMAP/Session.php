@@ -54,7 +54,7 @@ class Session implements JsonSerializable
      */
     public function dispatch(Request $request): Response
     {
-        // Build map with all supported methods of the used capabilities
+        // 1. Build map with all supported methods of the used capabilities
         // TODO cache or some other kind of efficiency increase ?
         $methods = new Map();
         foreach ($request->getUsedCapabilities() as $capabilityKey) {
@@ -66,12 +66,17 @@ class Session implements JsonSerializable
             $methods->putAll($capability->getMethods());
         }
 
-        // For each methodCall, execute the corresponding method, then add it to the response
+        // 2. For each methodCall, execute the corresponding method, then add it to the response
         $response = new Response($this);
         foreach ($request->getMethodCalls() as $methodCall) {
-            // TODO 3.7 Resolve References to Previous Method Results using php-jsonpointer/php-jsonpointer
+            // 2.1. Resolve references to previous method results (See RFC 8620 Section  3.7)
+            try {
+                $methodCall->resolveResultReferences($response->getMethodResponses());
+            } catch (\RuntimeException $exception) {
+                // TODO
+            }
 
-            // Execute the corresponding method
+            // 2.2. Execute the corresponding method
             try {
                 $methodCallable = $methods->get($methodCall->getName());
                 $methodResponse = $methodCallable($methodCall, $this);

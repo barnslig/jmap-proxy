@@ -34,6 +34,11 @@ class Response implements JsonSerializable
         $this->methodResponses->push($methodResponse);
     }
 
+    public function getMethodResponses(): Vector
+    {
+        return $this->methodResponses;
+    }
+
     public function jsonSerialize()
     {
         return [
