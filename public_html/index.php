@@ -8,8 +8,7 @@ use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // SETUP JMAP
-$jmap = new JMAP;
-$jmap->getSession()->addCapability('urn:ietf:params:jmap:core', new JP\JMAP\Capabilities\Core);
+$jmap = new JMAP();
 $jmap->getSession()->addCapability('urn:ietf:params:jmap:mail', new JP\JMAP\Capabilities\Mail);
 
 

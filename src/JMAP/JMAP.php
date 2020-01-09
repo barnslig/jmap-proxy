@@ -4,6 +4,7 @@ namespace JP\JMAP;
 
 use Ds\Map;
 use JP\JMAP\Exceptions\UnknownCapabilityException;
+use JP\JMAP\RequestErrors\LimitError;
 use JP\JMAP\RequestErrors\NotJsonError;
 use JP\JMAP\RequestErrors\NotRequestError;
 use JP\JMAP\RequestErrors\UnknownCapabilityError;
@@ -14,12 +15,43 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class JMAP
 {
+    /** @var array */
+    private $options;
+
     /** @var Session */
     private $session;
 
-    public function __construct()
+    /**
+     * Create a new JMAP server instance
+     *
+     * @param array $options Global server options
+     */
+    public function __construct(array $options = [])
     {
+        $this->options = array_merge([
+            "maxSizeUpload" => 50000000,
+            "maxConcurrentUpload" => 4,
+            "maxSizeRequest" => 10000000,
+            "maxConcurrentRequests" => 4,
+            "maxCallsInRequest" => 16,
+            "maxObjectsInGet" => 500,
+            "maxObjectsInSet" => 500,
+            "collationAlgorithms" => []
+        ], $options);
+
         $this->session = new Session();
+        $this->session->addCapability('urn:ietf:params:jmap:core', new \JP\JMAP\Capabilities\Core($this->options));
+    }
+
+    /**
+     * Get an option
+     *
+     * @param string $key Option key
+     * @return mixed
+     */
+    public function getOption(string $key)
+    {
+        return $this->options[$key];
     }
 
     /**
@@ -66,9 +98,12 @@ class JMAP
 
         // 2. Construct JMAP request
         try {
-            $jmapRequest = new Request($parsedBody);
+            $jmapRequest = new Request($parsedBody, $this->getOption("maxCallsInRequest"));
         } catch (ValidationException $exception) {
             $error = new NotRequestError($exception);
+            return $error->asResponse();
+        } catch (\OverflowException $exception) {
+            $error = new LimitError($exception->getMessage(), "maxCallsInRequest");
             return $error->asResponse();
         }
 

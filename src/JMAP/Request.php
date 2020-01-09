@@ -81,8 +81,10 @@ class Request
      * JSON schema and method calls are mapped into Invocation instances.
      *
      * @param object $data Parsed JSON request body
+     * @param int $maxCallsInRequest Maximum calls a request may have
+     * @throws OverflowException When maxCallsInRequest gets exceeded
      */
-    public function __construct(object $data)
+    public function __construct(object $data, int $maxCallsInRequest)
     {
         $validator = new Validator();
         $validator->validate($data, Request::$schema, Constraint::CHECK_MODE_EXCEPTIONS);
@@ -90,6 +92,10 @@ class Request
         $this->using = new Vector($data->using);
         // Sort the capability identifiers to canonicalize them for e.g. caching
         $this->using->sort();
+
+        if (count($data->methodCalls) > $maxCallsInRequest) {
+            throw new \OverflowException("The maximum number of " . $maxCallsInRequest . " method calls got exceeded.");
+        }
 
         // Turn method calls into Invocation instances
         $this->methodCalls = (new Vector($data->methodCalls))->map(function ($methodCall) {
