@@ -3,16 +3,16 @@
 namespace JP\Tests\JMAP;
 
 use Ds\Vector;
+use JP\JMAP\Exceptions\MethodInvocationException;
 use JP\JMAP\Invocation;
 use JP\JMAP\ResultReference;
-use JsonSchema\Exception\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 final class ResultReferenceTest extends TestCase
 {
     public function testValidates()
     {
-        $this->expectException(ValidationException::class);
+        $this->expectException(MethodInvocationException::class);
         $reference = (object)[];
         new ResultReference($reference);
     }
@@ -27,7 +27,7 @@ final class ResultReferenceTest extends TestCase
         ];
         $rr = new ResultReference($reference);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(MethodInvocationException::class);
         $rr->resolve($responses);
     }
 

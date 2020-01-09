@@ -3,6 +3,7 @@
 namespace JP\JMAP;
 
 use Ds\Map;
+use JP\JMAP\Exceptions\MethodInvocationException;
 use JP\JMAP\Exceptions\UnknownCapabilityException;
 use JsonSerializable;
 use OutOfBoundsException;
@@ -51,6 +52,7 @@ class Session implements JsonSerializable
      *
      * @param Request $request
      * @return Response
+     * @throws UnknownCapabilityException When an unknown capability is used
      */
     public function dispatch(Request $request): Response
     {
@@ -69,19 +71,21 @@ class Session implements JsonSerializable
         // 2. For each methodCall, execute the corresponding method, then add it to the response
         $response = new Response($this);
         foreach ($request->getMethodCalls() as $methodCall) {
-            // 2.1. Resolve references to previous method results (See RFC 8620 Section  3.7)
             try {
+                // 2.1. Resolve references to previous method results (See RFC 8620 Section  3.7)
                 $methodCall->resolveResultReferences($response->getMethodResponses());
-            } catch (\RuntimeException $exception) {
-                // TODO
-            }
 
-            // 2.2. Execute the corresponding method
-            try {
+                // 2.2. Execute the corresponding method
                 $methodCallable = $methods->get($methodCall->getName());
                 $methodResponse = $methodCallable($methodCall, $this);
             } catch (OutOfBoundsException $exception) {
                 $methodResponse = $methodCall->withName("error")->withArguments((object)["type" => "unknownMethod"]);
+            } catch (MethodInvocationException $exception) {
+                $args = (object)[ "type" => $exception->getType() ];
+                if ($exception->getMessage()) {
+                    $args->description = $exception->getMessage();
+                }
+                $methodResponse = $methodCall->withName("error")->withArguments($args);
             }
             $response->addMethodResponse($methodResponse);
         }

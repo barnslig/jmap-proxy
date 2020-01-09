@@ -3,7 +3,9 @@
 namespace JP\JMAP;
 
 use Ds\Vector;
+use JP\JMAP\Exceptions\MethodInvocationException;
 use JsonSchema\Constraints\Constraint;
+use JsonSchema\Exception\ValidationException;
 use JsonSchema\Validator;
 
 class ResultReference
@@ -40,11 +42,16 @@ class ResultReference
      * Construct a new ResultReference
      *
      * @param object $data Parsed result reference JSON
+     * @throws MethodInvocationException When the data cannot be validated
      */
     public function __construct(object $data)
     {
         $validator = new Validator();
-        $validator->validate($data, static::$schema, Constraint::CHECK_MODE_EXCEPTIONS);
+        try {
+            $validator->validate($data, static::$schema, Constraint::CHECK_MODE_EXCEPTIONS);
+        } catch (ValidationException $exception) {
+            throw new MethodInvocationException("invalidResultReference", $exception->getMessage());
+        }
 
         $this->resultOf = $data->resultOf;
         $this->name = $data->name;
@@ -55,6 +62,8 @@ class ResultReference
      * Resolve the reference from a Vector of response Invocations
      *
      * @param Vector $responses Vector of already computed response Invocations
+     * @throws MethodInvocationException When there is not matching response for the methodCallId/name combination
+     * @throws MethodInvocationException When the path could not be resolved
      */
     public function resolve(Vector $responses)
     {
@@ -67,8 +76,7 @@ class ResultReference
             }
         }
         if (!$source) {
-            // TODO
-            throw new \RuntimeException("invalidResultReference: methodCallId or name do not match any previous invocation");
+            throw new MethodInvocationException("invalidResultReference", "methodCallId or name do not match any previous invocation");
         }
 
         // 2. Evaluate the JSON Pointer
@@ -76,8 +84,7 @@ class ResultReference
             $pointer = JsonPointer::fromString($this->path);
             return $pointer->evaluate($source->getArguments());
         } catch (\Exception $exception) {
-            // TODO
-            throw new \RuntimeException("invalidResultReference: Path could not be resolved");
+            throw new MethodInvocationException("invalidResultReference", "Path could not be resolved");
         }
     }
 }

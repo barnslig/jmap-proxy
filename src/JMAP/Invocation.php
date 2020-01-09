@@ -4,6 +4,7 @@ namespace JP\JMAP;
 
 use Ds\Map;
 use Ds\Vector;
+use JP\JMAP\Exceptions\MethodInvocationException;
 use JsonSerializable;
 
 class Invocation implements JsonSerializable
@@ -20,13 +21,18 @@ class Invocation implements JsonSerializable
     public function __construct(string $name, object $arguments, string $methodCallId)
     {
         $this->name = $name;
-        $this->arguments = new Map(json_decode(json_encode($arguments), true));
+        $this->setArguments($arguments);
         $this->methodCallId = $methodCallId;
     }
 
     public function getName(): string
     {
         return $this->name;
+    }
+
+    private function setArguments(object $arguments)
+    {
+        $this->arguments = new Map(json_decode(json_encode($arguments), true));
     }
 
     public function getArguments(): Map
@@ -48,7 +54,7 @@ class Invocation implements JsonSerializable
     public function withArguments(object $arguments)
     {
         $new = clone $this;
-        $new->arguments = $arguments;
+        $new->setArguments($arguments);
         return $new;
     }
 
@@ -70,6 +76,7 @@ class Invocation implements JsonSerializable
      *
      * See 3.7 References to Previous Method Results of the Core spec
      * @param Vector $responses Vector of already computed Invocation response instances
+     * @throws MethodInvocationException When a key is contained both in normal and referenced form
      */
     public function resolveResultReferences(Vector $responses)
     {
@@ -82,7 +89,7 @@ class Invocation implements JsonSerializable
 
             $key = mb_substr($key, 1);
             if ($mArgs->hasKey($key)) {
-                throw new \RuntimeException("invalidArguments: The key '" . $key . "' is contained both in normal and referenced form.");
+                throw new MethodInvocationException("invalidArguments", "The key '" . $key . "' is contained both in normal and referenced form.");
             }
 
             $ref = new ResultReference((object)$value);

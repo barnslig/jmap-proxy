@@ -1,6 +1,6 @@
 <?php
 
-namespace JP\JMAp\Exceptions;
+namespace JP\JMAP\Exceptions;
 
 use RuntimeException;
 

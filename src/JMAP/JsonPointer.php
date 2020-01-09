@@ -2,7 +2,6 @@
 
 namespace JP\JMAP;
 
-use Ds\Map;
 use Ds\Vector;
 
 /**
