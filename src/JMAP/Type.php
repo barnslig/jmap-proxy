@@ -19,9 +19,9 @@ abstract class Type
      * Add a method to the type
      *
      * @param string $method Method key, e.g. "get"
-     * @param callable $fn Handler method with signature (Invocation, Session): Invocation
+     * @param Method $fn Handler class
      */
-    public function addMethod(string $method, callable $fn): void
+    public function addMethod(string $method, Method $fn): void
     {
         $this->methods->put($method, $fn);
     }

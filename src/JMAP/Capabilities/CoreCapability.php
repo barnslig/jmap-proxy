@@ -5,7 +5,7 @@ namespace JP\JMAP\Capabilities;
 use JP\JMAP\Capability;
 use JP\JMAP\Helper;
 
-class Core extends Capability
+class CoreCapability extends Capability
 {
     /** @var array */
     private $options;
@@ -25,7 +25,7 @@ class Core extends Capability
             "collationAlgorithms"
         ]);
 
-        $this->addType("Core", new \JP\JMAP\Capabilities\Types\Core());
+        $this->addType("Core", new CoreCapability\CoreType());
     }
 
     public function getCapabilities(): array

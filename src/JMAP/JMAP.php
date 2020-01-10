@@ -40,7 +40,7 @@ class JMAP
         ], $options);
 
         $this->session = new Session();
-        $this->session->addCapability('urn:ietf:params:jmap:core', new \JP\JMAP\Capabilities\Core($this->options));
+        $this->session->addCapability('urn:ietf:params:jmap:core', new Capabilities\CoreCapability($this->options));
     }
 
     /**
