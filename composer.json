@@ -19,6 +19,8 @@
     "phpunit/phpunit": "^8"
   },
   "require": {
+    "php": ">=7.3",
+    "ext-mbstring": "*",
     "pear-pear.horde.org/Horde_Imap_Client": "^2.30.1@stable",
     "pear-pear.horde.org/Horde_Cache": "^2.5.5@stable",
     "league/route": "^4.3",
