@@ -8,7 +8,10 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * RFC7807 error
+ * Request-Level Error that returns an object according to RFC 7807
+ *
+ * @see https://tools.ietf.org/html/rfc8620#section-3.6.1
+ * @see https://tools.ietf.org/html/rfc7807
  */
 class RequestError implements JsonSerializable
 {
@@ -21,6 +24,13 @@ class RequestError implements JsonSerializable
     /** @var array */
     private $error;
 
+    /**
+     * Create a new request error
+     *
+     * @param string $type Error type, e.g. "urn:ietf:params:jmap:error:notJSON"
+     * @param int $status HTTP error status, e.g. 400
+     * @param array $error Additional associative error data that is merged with type and status
+     */
     public function __construct(string $type, int $status, array $error)
     {
         $this->type = $type;
@@ -28,23 +38,23 @@ class RequestError implements JsonSerializable
         $this->error = $error;
     }
 
+    /**
+     * Turn the Request-Error into a PSR-7 response
+     *
+     * @return JsonResponse
+     */
     public function asResponse(): ResponseInterface
     {
-        return new JsonResponse($this, $this->getStatus(), [
+        return new JsonResponse($this, $this->status, [
             'Content-Type' => 'application/problem+json'
         ]);
     }
 
-    public function getStatus(): int
-    {
-        return $this->status;
-    }
-
     public function jsonSerialize()
     {
-        return (new Map([
+        return array_merge([
             "type" => $this->type,
             "status" => $this->status
-        ]))->merge($this->error);
+        ], $this->error);
     }
 }

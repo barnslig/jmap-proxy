@@ -28,8 +28,8 @@ class CoreCapability extends Capability
         $this->addType("Core", new CoreCapability\CoreType());
     }
 
-    public function getCapabilities(): array
+    public function getCapabilities(): object
     {
-        return $this->options;
+        return (object)$this->options;
     }
 }

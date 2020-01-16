@@ -3,8 +3,19 @@
 namespace JP\JMAP;
 
 use Ds\Map;
-use JP\JMAP\TypeMethodInterface;
 
+/**
+ * Abstract class to implement a JMAP type
+ *
+ * Types define an interface for creating, retrieving, updating, and deleting
+ * objects of their particular type. For a Foo data type, records of that type
+ * would be fetched via a Foo/get call and modified via a Foo/set call.
+ * Delta updates may be fetched via a Foo/changes call. These methods all
+ * follow a standard format as described below. Some types may not have all
+ * these methods.
+ *
+ * Each type is attached to a Capability.
+ */
 abstract class Type
 {
     /** @var Map */

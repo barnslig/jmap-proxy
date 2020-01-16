@@ -33,7 +33,8 @@
     }
   },
   "scripts": {
-    "pretty": "phpcbf --standard=PSR1,PSR2,PSR12 src/ tests/",
+    "lint": "phpcs --standard=PSR12 src/ tests/",
+    "pretty": "phpcbf --standard=PSR12 src/ tests/",
     "test": "phpunit --bootstrap vendor/autoload.php --testdox tests/"
   }
 }

@@ -16,9 +16,9 @@ class Mail extends Capability
         // $this->addType("SearchSnippet", null);
     }
 
-    public function getCapabilities(): array
+    public function getCapabilities(): object
     {
-        return [
+        return (object)[
             "maxMailboxesPerEmail" => null,
             "maxMailboxDepth" => null,
             "maxSizeMailboxName" => 100,

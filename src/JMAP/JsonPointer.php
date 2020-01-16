@@ -19,6 +19,8 @@ use Ds\Vector;
  * itself an array, the contents of this array are added to the output rather
  * than the array itself (i.e., the result is flattened from an array of arrays
  * to a single array).
+ *
+ * @see https://tools.ietf.org/html/rfc8620#section-3.7
  */
 class JsonPointer
 {

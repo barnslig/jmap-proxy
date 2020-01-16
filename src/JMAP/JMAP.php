@@ -13,6 +13,12 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * A JMAP server
+ *
+ * This class automatically instantiates a session and the core capability.
+ * Make sure to attach the PSR-15 compatible HTTP handlers!
+ */
 class JMAP
 {
     /** @var array */
@@ -22,7 +28,7 @@ class JMAP
     private $session;
 
     /**
-     * Create a new JMAP server instance
+     * Construct a new JMAP server instance
      *
      * @param array $options Global server options
      */
@@ -65,7 +71,7 @@ class JMAP
     }
 
     /**
-     * HTTP Session Handler: /.well-known/jmap
+     * PSR-15 HTTP Session Handler: /.well-known/jmap
      *
      * @param ServerRequestInterface $request
      * @return ResponseInterface
@@ -78,7 +84,7 @@ class JMAP
     }
 
     /**
-     * HTTP API Handler: /api
+     * PSR-15 HTTP API Handler: /api
      *
      * @param ServerRequestInterface $request
      * @return ResponseInterface

@@ -8,6 +8,15 @@ use JsonSchema\Constraints\Constraint;
 use JsonSchema\Exception\ValidationException;
 use JsonSchema\Validator;
 
+/**
+ * Result reference
+ *
+ * This class implements:
+ * - Validating a ResultReference JSON object
+ * - Resolving the Result Reference
+ *
+ * @see https://tools.ietf.org/html/rfc8620#section-3.7
+ */
 class ResultReference
 {
     /** @var array */

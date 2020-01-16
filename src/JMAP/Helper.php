@@ -2,6 +2,9 @@
 
 namespace JP\JMAP;
 
+/**
+ * Common helper methods
+ */
 final class Helper
 {
     /**

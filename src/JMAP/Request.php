@@ -4,10 +4,14 @@ namespace JP\JMAP;
 
 use Ds\Map;
 use Ds\Vector;
-use JP\JMAP\Invocation;
 use JsonSchema\Constraints\Constraint;
 use JsonSchema\Validator;
 
+/**
+ * JMAP request based on a JSON object that needs to be validated
+ *
+ * @see https://tools.ietf.org/html/rfc8620#section-3.3
+ */
 class Request
 {
     /** @var array */
@@ -87,7 +91,7 @@ class Request
     public function __construct(object $data, int $maxCallsInRequest)
     {
         $validator = new Validator();
-        $validator->validate($data, Request::$schema, Constraint::CHECK_MODE_EXCEPTIONS);
+        $validator->validate($data, self::$schema, Constraint::CHECK_MODE_EXCEPTIONS);
 
         $this->using = new Vector($data->using);
         // Sort the capability identifiers to canonicalize them for e.g. caching

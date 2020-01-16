@@ -3,10 +3,13 @@
 namespace JP\JMAP;
 
 use Ds\Vector;
-use JP\JMAP\Invocation;
-use JP\JMAP\Session;
 use JsonSerializable;
 
+/**
+ * JMAP Response
+ *
+ * @see https://tools.ietf.org/html/rfc8620#section-3.4
+ */
 class Response implements JsonSerializable
 {
     /** @var Session */
@@ -18,6 +21,11 @@ class Response implements JsonSerializable
      * @var Vector */
     private $methodResponses;
 
+    /**
+     * Construct a new Response instance
+     *
+     * @param Session $session Current session, used to determine the `sessionState`
+     */
     public function __construct(Session $session)
     {
         $this->session = $session;
@@ -34,6 +42,11 @@ class Response implements JsonSerializable
         $this->methodResponses->push($methodResponse);
     }
 
+    /**
+     * Get all method responses
+     *
+     * @return Vector A Vector of Invocations
+     */
     public function getMethodResponses(): Vector
     {
         return $this->methodResponses;

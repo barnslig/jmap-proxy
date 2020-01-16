@@ -9,7 +9,9 @@ use JsonSerializable;
 use OutOfBoundsException;
 
 /**
- * Class implementing a JMAP Session consisting of capabilities, accounts and endpoints
+ * Session consisting of capabilities, accounts and endpoints
+ *
+ * @see https://tools.ietf.org/html/rfc8620#section-2
  */
 class Session implements JsonSerializable
 {
@@ -39,6 +41,7 @@ class Session implements JsonSerializable
 
     /**
      * Get the session's hash that the client uses to determine change
+     *
      * @return string
      */
     public function getState(): string
@@ -95,6 +98,7 @@ class Session implements JsonSerializable
 
     /**
      * Data used to serialize the Session into JSON
+     *
      * @param bool $withState Whether the session's state hash should be included
      * @return object
      */

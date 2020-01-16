@@ -7,6 +7,11 @@ use Ds\Vector;
 use JP\JMAP\Exceptions\MethodInvocationException;
 use JsonSerializable;
 
+/**
+ * JMAP method calls and responses are represented as Invocation
+ *
+ * @see https://tools.ietf.org/html/rfc8620#section-3.2
+ */
 class Invocation implements JsonSerializable
 {
     /** @var string */
@@ -18,6 +23,13 @@ class Invocation implements JsonSerializable
     /** @var string */
     private $methodCallId = '';
 
+    /**
+     * Construct a new Invocation
+     *
+     * @param string $name Method name, e.g. "Mailbox/get"
+     * @param object $arguments Method arguments/response
+     * @param string $methodCallId Client-provided Method Call ID, e.g. "#0"
+     */
     public function __construct(string $name, object $arguments, string $methodCallId)
     {
         $this->name = $name;
@@ -25,28 +37,48 @@ class Invocation implements JsonSerializable
         $this->methodCallId = $methodCallId;
     }
 
+    /**
+     * Get the invocation's name, e.g. "Mailbox/get"
+     *
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * Set the invocation's arguments
+     *
+     * @param object $arguments Arguments as an object, i.e. json_decode result
+     */
     private function setArguments(object $arguments)
     {
         $this->arguments = new Map(json_decode(json_encode($arguments), true));
     }
 
+    /**
+     * Get the invocation's arguments
+     *
+     * @return Map
+     */
     public function getArguments(): Map
     {
         return $this->arguments;
     }
 
+    /**
+     * Get the method call ID which is an arbitrary string from the client
+     *
+     * @return string
+     */
     public function getMethodCallId(): string
     {
         return $this->methodCallId;
     }
 
     /**
-     * Return an instance with the specified arguments
+     * Return a new instance with the specified arguments
      *
      * @param array $arguments
      * @return static
@@ -59,7 +91,7 @@ class Invocation implements JsonSerializable
     }
 
     /**
-     * Return an instance with the specified name
+     * Return a new instance with the specified name
      *
      * @param string $name
      * @return static
@@ -74,7 +106,7 @@ class Invocation implements JsonSerializable
     /**
      * Resolve result references based on a Vector of Invocations
      *
-     * See 3.7 References to Previous Method Results of the Core spec
+     * @see https://tools.ietf.org/html/rfc8620#section-3.7
      * @param Vector $responses Vector of already computed Invocation response instances
      * @throws MethodInvocationException When a key is contained both in normal and referenced form
      */

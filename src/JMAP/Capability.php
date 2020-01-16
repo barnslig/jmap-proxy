@@ -7,6 +7,13 @@ use JsonSerializable;
 
 /**
  * Abstract class to implement a JMAP capability
+ *
+ * Capabilities are used to extend the functionality of a JMAP server.
+ * It consists of Types that provide Methods. For example, a capability
+ * of type "urn:ietf:params:jmap:mail" may have a type called "Mailbox" with
+ * a corresponding method called "get".
+ *
+ * Each capability is attached to a Session.
  */
 abstract class Capability implements JsonSerializable
 {
@@ -24,9 +31,14 @@ abstract class Capability implements JsonSerializable
     /**
      * Get further information about this capability
      *
+     * The return value is used within the JMAP Session Resource to give
+     * further information about the server's capabilities in relation to
+     * this capability.
+     *
+     * @see https://tools.ietf.org/html/rfc8620#section-2
      * @return object
      */
-    abstract public function getCapabilities(): array;
+    abstract public function getCapabilities(): object;
 
     /**
      * Add a type consisting of methods
