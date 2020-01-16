@@ -20,7 +20,7 @@ use JsonSchema\Validator;
 class ResultReference
 {
     /** @var array */
-    private static $schema = [
+    private const SCHEMA = [
         "type" => "object",
         "properties" => [
             "resultOf" => [
@@ -57,7 +57,7 @@ class ResultReference
     {
         $validator = new Validator();
         try {
-            $validator->validate($data, static::$schema, Constraint::CHECK_MODE_EXCEPTIONS);
+            $validator->validate($data, static::SCHEMA, Constraint::CHECK_MODE_EXCEPTIONS);
         } catch (ValidationException $exception) {
             throw new MethodInvocationException("invalidResultReference", $exception->getMessage());
         }
@@ -85,7 +85,10 @@ class ResultReference
             }
         }
         if (!$source) {
-            throw new MethodInvocationException("invalidResultReference", "methodCallId or name do not match any previous invocation");
+            throw new MethodInvocationException(
+                "invalidResultReference",
+                "methodCallId or name do not match any previous invocation"
+            );
         }
 
         // 2. Evaluate the JSON Pointer

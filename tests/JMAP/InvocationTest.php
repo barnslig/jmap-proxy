@@ -45,6 +45,7 @@ final class InvocationTest extends TestCase
         $i = new Invocation("Foo/bar", $args, "#1");
         $i->resolveResultReferences($responses);
 
+        $this->assertFalse($i->getArguments()->hasKey("#foo"));
         $this->assertEquals($i->getArguments()->get("foo"), "bla");
     }
 }

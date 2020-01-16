@@ -64,7 +64,9 @@ class Session implements JsonSerializable
         $methods = new Map();
         foreach ($request->getUsedCapabilities() as $capabilityKey) {
             if (!$this->capabilities->hasKey($capabilityKey)) {
-                throw new UnknownCapabilityException("The Request object used capability '" . $capabilityKey . "', which is not supported by this server.");
+                throw new UnknownCapabilityException(
+                    "The Request object used capability '" . $capabilityKey . "', which is not supported by this server"
+                );
             }
 
             $capability = $this->capabilities->get($capabilityKey);

@@ -15,7 +15,7 @@ use JsonSchema\Validator;
 class Request
 {
     /** @var array */
-    private static $schema = [
+    private const SCHEMA = [
         "definitions" => [
             "Invocation" => [
                 "type" => "array",
@@ -91,7 +91,7 @@ class Request
     public function __construct(object $data, int $maxCallsInRequest)
     {
         $validator = new Validator();
-        $validator->validate($data, self::$schema, Constraint::CHECK_MODE_EXCEPTIONS);
+        $validator->validate($data, static::SCHEMA, Constraint::CHECK_MODE_EXCEPTIONS);
 
         $this->using = new Vector($data->using);
         // Sort the capability identifiers to canonicalize them for e.g. caching

@@ -121,10 +121,14 @@ class Invocation implements JsonSerializable
 
             $key = mb_substr($key, 1);
             if ($mArgs->hasKey($key)) {
-                throw new MethodInvocationException("invalidArguments", "The key '" . $key . "' is contained both in normal and referenced form.");
+                throw new MethodInvocationException(
+                    "invalidArguments",
+                    "The key '" . $key . "' is contained both in normal and referenced form."
+                );
             }
 
             $ref = new ResultReference((object)$value);
+            $this->arguments->remove("#" . $key);
             $this->arguments->put($key, $ref->resolve($responses));
         }
     }
