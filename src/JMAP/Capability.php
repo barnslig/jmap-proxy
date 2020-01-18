@@ -47,7 +47,7 @@ abstract class Capability implements JsonSerializable
      * @param  Type $type JMAP Type instance
      * @return void
      */
-    public function addType(string $key, Type $type): void
+    final public function addType(string $key, Type $type): void
     {
         $this->types->put($key, $type);
     }
@@ -57,7 +57,7 @@ abstract class Capability implements JsonSerializable
      *
      * @return Map
      */
-    public function getMethods(): Map
+    final public function getMethods(): Map
     {
         $methods = new Map();
         foreach ($this->types as $typeKey => $type) {

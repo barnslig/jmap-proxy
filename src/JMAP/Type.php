@@ -32,7 +32,7 @@ abstract class Type
      * @param string $method Method key, e.g. "get"
      * @param Method $fn Handler class
      */
-    public function addMethod(string $method, Method $fn): void
+    final public function addMethod(string $method, Method $fn): void
     {
         $this->methods->put($method, $fn);
     }
@@ -42,7 +42,7 @@ abstract class Type
      *
      * @return Map
      */
-    public function getMethods(): Map
+    final public function getMethods(): Map
     {
         return $this->methods;
     }
