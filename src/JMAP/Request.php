@@ -103,10 +103,10 @@ class Request
 
         // Turn method calls into Invocation instances
         $this->methodCalls = (new Vector($data->methodCalls))->map(function ($methodCall) {
-            return new Invocation(...$methodCall);
+            return new Invocation($methodCall[0], (array) $methodCall[1], $methodCall[2]);
         });
 
-        $this->createdIds = new Map(isset($data->createdIds) ? $parsedBody->createdIds : []);
+        $this->createdIds = new Map($data->createdIds ?? []);
     }
 
     public function getUsedCapabilities(): Vector

@@ -4,12 +4,10 @@ namespace JP\JMAP\Capabilities\CoreCapability;
 
 use JP\JMAP\Type;
 
-class CoreType extends Type
+class CoreType implements Type
 {
-    public function __construct()
+    public function getName(): string
     {
-        parent::__construct();
-
-        $this->addMethod('echo', new CoreType\CoreEchoMethod());
+        return "Core";
     }
 }

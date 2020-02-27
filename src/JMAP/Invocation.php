@@ -30,10 +30,10 @@ class Invocation implements JsonSerializable
      * @param object $arguments Method arguments/response
      * @param string $methodCallId Client-provided Method Call ID, e.g. "#0"
      */
-    public function __construct(string $name, object $arguments, string $methodCallId)
+    public function __construct(string $name, array $arguments, string $methodCallId)
     {
         $this->name = $name;
-        $this->setArguments($arguments);
+        $this->arguments = new Map($arguments);
         $this->methodCallId = $methodCallId;
     }
 
@@ -45,16 +45,6 @@ class Invocation implements JsonSerializable
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * Set the invocation's arguments
-     *
-     * @param object $arguments Arguments as an object, i.e. json_decode result
-     */
-    private function setArguments(object $arguments)
-    {
-        $this->arguments = new Map(json_decode(json_encode($arguments), true));
     }
 
     /**
@@ -83,10 +73,10 @@ class Invocation implements JsonSerializable
      * @param array $arguments
      * @return static
      */
-    public function withArguments(object $arguments)
+    public function withArguments(array $arguments)
     {
         $new = clone $this;
-        $new->setArguments($arguments);
+        $new->arguments = new Map($arguments);
         return $new;
     }
 
@@ -127,7 +117,7 @@ class Invocation implements JsonSerializable
                 );
             }
 
-            $ref = new ResultReference((object)$value);
+            $ref = new ResultReference($value);
             $this->arguments->remove("#" . $key);
             $this->arguments->put($key, $ref->resolve($responses));
         }

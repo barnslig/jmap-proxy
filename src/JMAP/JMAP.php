@@ -2,7 +2,6 @@
 
 namespace JP\JMAP;
 
-use Ds\Map;
 use JP\JMAP\Exceptions\UnknownCapabilityException;
 use JP\JMAP\RequestErrors\LimitError;
 use JP\JMAP\RequestErrors\NotJsonError;
@@ -46,7 +45,7 @@ class JMAP
         ], $options);
 
         $this->session = new Session();
-        $this->session->addCapability('urn:ietf:params:jmap:core', new Capabilities\CoreCapability($this->options));
+        $this->session->addCapability(new Capabilities\CoreCapability($this->options));
     }
 
     /**
@@ -96,8 +95,9 @@ class JMAP
             $error = new NotJsonError();
             return $error->asResponse();
         }
-        $parsedBody = json_decode(file_get_contents('php://input'));
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        try {
+            $parsedBody = json_decode(file_get_contents('php://input'), false, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $exception) {
             $error = new NotJsonError();
             return $error->asResponse();
         }

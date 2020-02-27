@@ -4,7 +4,7 @@ namespace JP\JMAP\Capabilities;
 
 use JP\JMAP\Capability;
 
-class Mail extends Capability
+class MailCapability extends Capability
 {
     public function __construct()
     {
@@ -26,5 +26,10 @@ class Mail extends Capability
             "emailQuerySortOptions" => [],
             "mayCreateTopLevelMailbox" => true
         ];
+    }
+
+    public function getName(): string
+    {
+        return "urn:ietf:params:jmap:mail";
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use JP\JMAP\JMAP;
@@ -9,11 +10,11 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 // SETUP JMAP
 $jmap = new JMAP();
-$jmap->getSession()->addCapability('urn:ietf:params:jmap:mail', new JP\JMAP\Capabilities\Mail);
+$jmap->getSession()->addCapability(new JP\JMAP\Capabilities\MailCapability());
 
 
 // SETUP ROUTER
-$router = new League\Route\Router;
+$router = new League\Route\Router();
 
 $router->get('/.well-known/jmap', [$jmap, 'sessionHandler']);
 $router->post('/jmap', [$jmap, 'apiHandler']);
@@ -21,6 +22,11 @@ $router->post('/jmap', [$jmap, 'apiHandler']);
 
 // DISPATCH REQUEST
 $request = ServerRequestFactory::fromGlobals();
-$response = $router->dispatch($request);
 
-(new SapiEmitter())->emit($response);
+try {
+    $response = $router->dispatch($request);
+    (new SapiEmitter())->emit($response);
+} catch (\League\Route\Http\Exception\NotFoundException $exception) {
+    // pass on so php -S can serve static files
+    return false;
+}

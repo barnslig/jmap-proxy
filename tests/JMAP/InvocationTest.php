@@ -3,6 +3,7 @@
 namespace JP\Tests\JMAP;
 
 use Ds\Vector;
+use Ds\Map;
 use JP\JMAP\Invocation;
 use PHPUnit\Framework\TestCase;
 
@@ -10,7 +11,7 @@ final class InvocationTest extends TestCase
 {
     public function testResolveResultReferenceInvalidArgumentRaises()
     {
-        $args = (object)[
+        $args = [
             "foo" => "bar",
             "#foo" => (object)[
                 "resultOf" => "#0",
@@ -26,7 +27,7 @@ final class InvocationTest extends TestCase
 
     public function testResolveResultReference()
     {
-        $args = (object)[
+        $args = [
             "#foo" => (object)[
                 "resultOf" => "#0",
                 "name" => "Foo/bar",
@@ -35,7 +36,7 @@ final class InvocationTest extends TestCase
         ];
 
         $responses = new Vector([
-            new Invocation("Foo/bar", (object)[
+            new Invocation("Foo/bar", [
                 "bar" => (object)[
                     "baz" => "bla"
                 ]

@@ -25,11 +25,18 @@ class CoreCapability extends Capability
             "collationAlgorithms"
         ]);
 
-        $this->addType("Core", new CoreCapability\CoreType());
+        $this->addType(new CoreCapability\CoreType(), [
+            new CoreCapability\CoreType\CoreEchoMethod()
+        ]);
     }
 
     public function getCapabilities(): object
     {
         return (object)$this->options;
+    }
+
+    public function getName(): string
+    {
+        return "urn:ietf:params:jmap:core";
     }
 }

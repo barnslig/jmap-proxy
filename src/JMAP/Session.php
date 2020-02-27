@@ -3,6 +3,7 @@
 namespace JP\JMAP;
 
 use Ds\Map;
+use Ds\Vector;
 use JP\JMAP\Exceptions\MethodInvocationException;
 use JP\JMAP\Exceptions\UnknownCapabilityException;
 use JsonSerializable;
@@ -34,9 +35,9 @@ class Session implements JsonSerializable
      * @param Capability $capability Instance of the corresponding capability class
      * @return void
      */
-    public function addCapability(string $key, Capability $capability): void
+    public function addCapability(Capability $capability): void
     {
-        $this->capabilities->put($key, $capability);
+        $this->capabilities->put($capability->getName(), $capability);
     }
 
     /**
@@ -51,18 +52,17 @@ class Session implements JsonSerializable
     }
 
     /**
-     * Dispatch a JMAP request and turn it into a JMAP response
+     * Resolves a list of capabilities to a map of methods
      *
-     * @param Request $request
-     * @return Response
+     * @param Vector $usedCapabilities - Vector of Strings of capabilities
+     * @return Map Map where the keys are full method names (e.g. "Email/get") and the values are Methods
      * @throws UnknownCapabilityException When an unknown capability is used
      */
-    public function dispatch(Request $request): Response
+    public function resolveMethods(Vector $usedCapabilities): Map
     {
-        // 1. Build map with all supported methods of the used capabilities
         // TODO cache or some other kind of efficiency increase ?
         $methods = new Map();
-        foreach ($request->getUsedCapabilities() as $capabilityKey) {
+        foreach ($usedCapabilities as $capabilityKey) {
             if (!$this->capabilities->hasKey($capabilityKey)) {
                 throw new UnknownCapabilityException(
                     "The Request object used capability '" . $capabilityKey . "', which is not supported by this server"
@@ -72,26 +72,53 @@ class Session implements JsonSerializable
             $capability = $this->capabilities->get($capabilityKey);
             $methods->putAll($capability->getMethods());
         }
+        return $methods;
+    }
+
+    /**
+     * Resolves a method call into a method response
+     *
+     * @param Invocation $methodCall - Client-provided method call
+     * @param Vector $methodResponses - Vector of Invocations of already processed method calls
+     * @param Map $methods - Map of available methods within this request
+     * @return Invocation The method response
+     */
+    public function resolveMethodCall(Invocation $methodCall, Vector $methodResponses, Map $methods): Invocation
+    {
+        try {
+            // 1. Resolve references to previous method results (See RFC 8620 Section  3.7)
+            $methodCall->resolveResultReferences($methodResponses);
+
+            // 2. Execute the corresponding method
+            $methodCallable = $methods->get($methodCall->getName());
+            $methodResponse = $methodCallable->handle($methodCall, $this);
+        } catch (OutOfBoundsException $exception) {
+            $methodResponse = $methodCall->withName("error")->withArguments(["type" => "unknownMethod"]);
+        } catch (MethodInvocationException $exception) {
+            $args = ["type" => $exception->getType()];
+            if ($exception->getMessage()) {
+                $args["description"] = $exception->getMessage();
+            }
+            $methodResponse = $methodCall->withName("error")->withArguments($args);
+        }
+        return $methodResponse;
+    }
+
+    /**
+     * Dispatch a JMAP request and turn it into a JMAP response
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function dispatch(Request $request): Response
+    {
+        // 1. Build map with all supported methods of the used capabilities
+        $methods = $this->resolveMethods($request->getUsedCapabilities());
 
         // 2. For each methodCall, execute the corresponding method, then add it to the response
         $response = new Response($this);
         foreach ($request->getMethodCalls() as $methodCall) {
-            try {
-                // 2.1. Resolve references to previous method results (See RFC 8620 Section  3.7)
-                $methodCall->resolveResultReferences($response->getMethodResponses());
-
-                // 2.2. Execute the corresponding method
-                $methodCallable = $methods->get($methodCall->getName());
-                $methodResponse = $methodCallable->handle($methodCall, $this);
-            } catch (OutOfBoundsException $exception) {
-                $methodResponse = $methodCall->withName("error")->withArguments((object)["type" => "unknownMethod"]);
-            } catch (MethodInvocationException $exception) {
-                $args = (object)[ "type" => $exception->getType() ];
-                if ($exception->getMessage()) {
-                    $args->description = $exception->getMessage();
-                }
-                $methodResponse = $methodCall->withName("error")->withArguments($args);
-            }
+            $methodResponse = $this->resolveMethodCall($methodCall, $response->getMethodResponses(), $methods);
             $response->addMethodResponse($methodResponse);
         }
 
