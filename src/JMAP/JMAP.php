@@ -7,7 +7,7 @@ use JP\JMAP\RequestErrors\LimitError;
 use JP\JMAP\RequestErrors\NotJsonError;
 use JP\JMAP\RequestErrors\NotRequestError;
 use JP\JMAP\RequestErrors\UnknownCapabilityError;
-use JsonSchema\Exception\ValidationException;
+use JP\JMAP\Schemas\ValidationException;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

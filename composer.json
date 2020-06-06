@@ -27,7 +27,8 @@
     "laminas/laminas-diactoros": "^2.2",
     "laminas/laminas-httphandlerrunner": "^1.1",
     "php-ds/php-ds": "^1.2",
-    "justinrainbow/json-schema": "^5.2"
+    "opis/json-schema": "^1.0",
+    "m1x0n/opis-json-schema-error-presenter": "^0.5.1"
   },
   "autoload": {
     "psr-4": {

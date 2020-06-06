@@ -3,7 +3,7 @@
 namespace JP\JMAP\RequestErrors;
 
 use JP\JMAP\RequestError;
-use JsonSchema\Exception\ValidationException;
+use JP\JMAP\Schemas\ValidationException;
 
 /**
  * Not Request Error

@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jmap.io/Request.json#",
+  "definitions": {
+    "Invocation": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "additionalItems": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "using": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "methodCalls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Invocation"
+      }
+    },
+    "createdIds": {
+      "type": "object"
+    }
+  },
+  "required": ["using", "methodCalls"]
+}

@@ -4,8 +4,7 @@ namespace JP\JMAP;
 
 use Ds\Map;
 use Ds\Vector;
-use JsonSchema\Constraints\Constraint;
-use JsonSchema\Validator;
+use JP\JMAP\Schemas\Validator;
 
 /**
  * JMAP request based on a JSON object that needs to be validated
@@ -14,56 +13,13 @@ use JsonSchema\Validator;
  */
 class Request
 {
-    /** @var array */
-    private const SCHEMA = [
-        "definitions" => [
-            "Invocation" => [
-                "type" => "array",
-                "items" => [
-                    [
-                        "type" => "string",
-                        "required" => "true"
-                    ],
-                    [
-                        "type" => "object",
-                        "required" => "true"
-                    ],
-                    [
-                        "type" => "string",
-                        "required" => "true"
-                    ]
-                ]
-            ]
-        ],
-        "type" => "object",
-        "properties" => [
-            "using" => [
-                "type" => "array",
-                "required" => true,
-                "items" => [
-                    "type" => "string"
-                ]
-            ],
-            "methodCalls" => [
-                "type" => "array",
-                "required" => "true",
-                "items" => [
-                    "\$ref" => "#/definitions/Invocation"
-                ]
-            ],
-            "createdIds" => [
-                "type" => "object"
-            ]
-        ]
-    ];
-
     /**
      * Capability identifiers, the Vector consists of strings
      *
      * @var Vector
      */
     private $using;
-    
+
     /**
      * Method calls, the Vector consists of Invocation instances
      *
@@ -91,7 +47,7 @@ class Request
     public function __construct(object $data, int $maxCallsInRequest)
     {
         $validator = new Validator();
-        $validator->validate($data, static::SCHEMA, Constraint::CHECK_MODE_EXCEPTIONS);
+        $validator->validate($data, "http://jmap.io/Request.json#");
 
         $this->using = new Vector($data->using);
         // Sort the capability identifiers to canonicalize them for e.g. caching

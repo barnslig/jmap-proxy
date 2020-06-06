@@ -4,7 +4,7 @@ namespace JP\Tests\JMAP;
 
 use JP\JMAP\Invocation;
 use JP\JMAP\Request;
-use JsonSchema\Exception\ValidationException;
+use JP\JMAP\Schemas\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 final class RequestTest extends TestCase

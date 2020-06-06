@@ -4,9 +4,8 @@ namespace JP\JMAP;
 
 use Ds\Vector;
 use JP\JMAP\Exceptions\MethodInvocationException;
-use JsonSchema\Constraints\Constraint;
-use JsonSchema\Exception\ValidationException;
-use JsonSchema\Validator;
+use JP\JMAP\Schemas\ValidationException;
+use JP\JMAP\Schemas\Validator;
 
 /**
  * Result reference
@@ -19,25 +18,6 @@ use JsonSchema\Validator;
  */
 class ResultReference
 {
-    /** @var array */
-    private const SCHEMA = [
-        "type" => "object",
-        "properties" => [
-            "resultOf" => [
-                "type" => "string",
-                "required" => true
-            ],
-            "name" => [
-                "type" => "string",
-                "required" => true
-            ],
-            "path" => [
-                "type" => "string",
-                "required" => true
-            ]
-        ]
-    ];
-
     /** @var string */
     private $resultOf;
 
@@ -57,7 +37,7 @@ class ResultReference
     {
         $validator = new Validator();
         try {
-            $validator->validate($data, static::SCHEMA, Constraint::CHECK_MODE_EXCEPTIONS);
+            $validator->validate($data, "http://jmap.io/ResultReference.json#");
         } catch (ValidationException $exception) {
             throw new MethodInvocationException("invalidResultReference", $exception->getMessage());
         }
