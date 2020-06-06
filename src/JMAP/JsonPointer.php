@@ -51,7 +51,7 @@ class JsonPointer
 
         // Unescape the path
         $new->path = $pathItems->map(function ($pathItem) use ($isUriFragment) {
-            return str_replace(array('~1', '~0'), array('/', '~'), $isUriFragment ? urldecode($pathItem) : $pathItem);
+            return str_replace(["~1", "~0"], ["/", "~"], $isUriFragment ? urldecode($pathItem) : $pathItem);
         });
 
         return $new;

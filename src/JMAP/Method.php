@@ -12,9 +12,9 @@ namespace JP\JMAP;
 interface Method
 {
     /**
-     * Get the type name
+     * Get the method name
      *
-     * @return string Type name, e.g. Core
+     * @return string Method name, e.g. echo
      */
     public function getName(): string;
 
