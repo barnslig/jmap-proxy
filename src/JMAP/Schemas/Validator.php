@@ -2,13 +2,14 @@
 
 namespace JP\JMAP\Schemas;
 
-use Opis\JsonSchema\Validator as OpisValidator;
+use Ds\Map;
 use Opis\JsonSchema\ValidationError as OpisValidationError;
 use Opis\JsonSchema\ValidationResult as OpisValidationResult;
+use Opis\JsonSchema\Validator as OpisValidator;
 use OpisErrorPresenter\Implementation\MessageFormatterFactory;
 use OpisErrorPresenter\Implementation\PresentedValidationErrorFactory;
-use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
 use OpisErrorPresenter\Implementation\Strategies\BestMatchError;
+use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
 
 /**
  * JSON Schema Validator for JMAP
@@ -54,6 +55,14 @@ class Validator
      */
     public function validate(object $data, string $uri): void
     {
+        /* Convert Ds\Map structures so we can validate them.
+         * This is necessary as, for example, Invocation is using Ds\Map to
+         * store arguments which we commonly validate.
+         */
+        if ($data instanceof Map) {
+            $data = (object)$data->toArray();
+        }
+
         $result = $this->validator->uriValidation($data, $uri);
 
         if ($result->hasErrors()) {

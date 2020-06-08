@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jmap.io/methods/queryChanges.json#",
+  "type": "object",
+  "properties": {
+    "accountId": {
+      "type": "string"
+    },
+    "filter": {
+      "oneOf": [
+        {
+          "$ref": "http://jmap.io/methods/query.json#/definitions/FilterOperator"
+        },
+        {
+          "$ref": "http://jmap.io/methods/query.json#/definitions/FilterCondition"
+        }
+      ]
+    },
+    "sort": {
+      "type": "array",
+      "items": {
+        "$ref": "http://jmap.io/methods/query.json#/definitions/Comparator"
+      }
+    },
+    "sinceQueryState": {
+      "type": "string"
+    },
+    "maxChanges": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "upToId": {
+      "type": "string"
+    },
+    "calculateTotal": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": ["accountId", "sinceQueryState"]
+}

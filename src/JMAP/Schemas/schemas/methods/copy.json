@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jmap.io/methods/copy.json#",
+  "type": "object",
+  "properties": {
+    "fromAccountId": {
+      "type": "string"
+    },
+    "ifFromInState": {
+      "type": "string"
+    },
+    "accountId": {
+      "type": "string"
+    },
+    "ifInState": {
+      "type": "string"
+    },
+    "create": {
+      "type": "object"
+    },
+    "onSuccessDestroyOriginal": {
+      "type": "boolean",
+      "default": false
+    },
+    "destroyFromIfInState": {
+      "type": "string"
+    }
+  },
+  "required": ["fromAccountId", "accountId"]
+}

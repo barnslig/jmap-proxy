@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jmap.io/methods/query.json#",
+  "definitions": {
+    "Comparator": {
+      "type": "object",
+      "properties": {
+        "property": {
+          "type": "string"
+        },
+        "isAscending": {
+          "type": "boolean",
+          "default": true
+        },
+        "collation": {
+          "type": "string"
+        },
+        "position": {
+          "type": "integer",
+          "default": 0
+        },
+        "anchor": {
+          "type": "string"
+        },
+        "anchorOffset": {
+          "type": "integer",
+          "default": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "calculateTotal": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": ["property"]
+    },
+    "FilterCondition": {
+      "type": "object",
+      "properties": {
+        "operator": false
+      }
+    },
+    "FilterOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": ["AND", "OR", "NOT"]
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/definitions/FilterOperator" },
+              { "$ref": "#/definitions/FilterCondition" }
+            ]
+          }
+        }
+      },
+      "required": ["operator"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "accountId": {
+      "type": "string"
+    },
+    "filter": {
+      "oneOf": [
+        { "$ref": "#/definitions/FilterOperator" },
+        { "$ref": "#/definitions/FilterCondition" }
+      ]
+    },
+    "sort": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Comparator"
+      }
+    }
+  },
+  "required": ["accountId"]
+}

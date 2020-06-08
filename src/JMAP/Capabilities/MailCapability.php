@@ -6,19 +6,14 @@ use JP\JMAP\Capability;
 
 class MailCapability extends Capability
 {
-    public function __construct()
+    /** @var array */
+    private $options;
+
+    public function __construct($options = [])
     {
         parent::__construct();
 
-        // $this->addType("Mailbox", null);
-        // $this->addType("Thread", null);
-        // $this->addType("Email", null);
-        // $this->addType("SearchSnippet", null);
-    }
-
-    public function getCapabilities(): object
-    {
-        return (object)[
+        $this->options = [
             "maxMailboxesPerEmail" => null,
             "maxMailboxDepth" => null,
             "maxSizeMailboxName" => 100,
@@ -26,6 +21,15 @@ class MailCapability extends Capability
             "emailQuerySortOptions" => [],
             "mayCreateTopLevelMailbox" => true
         ];
+
+        $this->addType(new MailCapability\MailboxType(), [
+            new MailCapability\MailboxType\MailboxGetMethod()
+        ]);
+    }
+
+    public function getCapabilities(): object
+    {
+        return (object)$this->options;
     }
 
     public function getName(): string
