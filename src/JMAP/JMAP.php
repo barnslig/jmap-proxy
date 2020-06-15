@@ -11,6 +11,7 @@ use JP\JMAP\Schemas\ValidationException;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use RuntimeException;
 
 /**
  * A JMAP server
@@ -20,7 +21,7 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class JMAP
 {
-    /** @var array */
+    /** @var array<string, mixed> */
     private $options;
 
     /** @var Session */
@@ -29,7 +30,7 @@ class JMAP
     /**
      * Construct a new JMAP server instance
      *
-     * @param array $options Global server options
+     * @param array<string, mixed> $options Global server options
      */
     public function __construct(array $options = [])
     {
@@ -96,7 +97,12 @@ class JMAP
             return $error->asResponse();
         }
         try {
-            $parsedBody = json_decode(file_get_contents('php://input'), false, 512, JSON_THROW_ON_ERROR);
+            $rawBody = file_get_contents('php://input');
+            if ($rawBody === false) {
+                throw new RuntimeException("Cannot load request body");
+            }
+
+            $parsedBody = json_decode($rawBody, false, 512, JSON_THROW_ON_ERROR);
         } catch (\JsonException $exception) {
             $error = new NotJsonError();
             return $error->asResponse();

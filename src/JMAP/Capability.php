@@ -17,7 +17,7 @@ use JsonSerializable;
  */
 abstract class Capability implements JsonSerializable
 {
-    /** @var Map */
+    /** @var Map<string, Method> */
     private $methods;
 
     public function __construct()
@@ -48,7 +48,7 @@ abstract class Capability implements JsonSerializable
      * Add a type with its methods
      *
      * @param Type $type Type to be added
-     * @param array $methods Array of Methods
+     * @param array<Method> $methods Array of Methods
      * @return void
      */
     public function addType(Type $type, array $methods): void
@@ -61,7 +61,7 @@ abstract class Capability implements JsonSerializable
     /**
      * Get Map of all methods provided by this capability
      *
-     * @return Map
+     * @return Map<string, Method>
      */
     public function getMethods(): Map
     {

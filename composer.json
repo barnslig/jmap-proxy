@@ -16,7 +16,8 @@
   ],
   "require-dev": {
     "squizlabs/php_codesniffer": "3.*",
-    "phpunit/phpunit": "^8"
+    "phpunit/phpunit": "^8",
+    "phpstan/phpstan": "^0.12.26"
   },
   "require": {
     "php": ">=7.3",
@@ -36,7 +37,7 @@
     }
   },
   "scripts": {
-    "lint": "phpcs --standard=PSR12 src/ tests/",
+    "lint": "phpcs --standard=PSR12 src/ tests/; phpstan analyse -l 8 src/ tests/",
     "pretty": "phpcbf --standard=PSR12 src/ tests/",
     "test": "phpunit --bootstrap vendor/autoload.php --testdox tests/"
   }

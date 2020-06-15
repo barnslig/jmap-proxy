@@ -37,23 +37,20 @@ class Validator
         $this->validator = new OpisValidator(null, $this->loader);
 
         $this->presenter = new ValidationErrorPresenter(
-            new PresentedValidationErrorFactory(
-                new MessageFormatterFactory(
-                    new BestMatchError()
-                )
-            )
+            new PresentedValidationErrorFactory(new MessageFormatterFactory()),
+            new BestMatchError()
         );
     }
 
     /**
      * Validate data against a schema
      *
-     * @param object $data Data that should be validated
+     * @param object|Map $data Data that should be validated
      * @param string $uri URI of the JSON schema, e.g. http://jmap.io/Request.json#
      * @throws ValidationException When the validation fails
      * @return void
      */
-    public function validate(object $data, string $uri): void
+    public function validate($data, string $uri): void
     {
         /* Convert Ds\Map structures so we can validate them.
          * This is necessary as, for example, Invocation is using Ds\Map to

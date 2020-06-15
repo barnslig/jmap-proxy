@@ -21,7 +21,7 @@ class RequestError implements JsonSerializable
     /** @var int */
     private $status = 400;
 
-    /** @var array */
+    /** @var array<mixed> */
     private $error;
 
     /**
@@ -29,7 +29,7 @@ class RequestError implements JsonSerializable
      *
      * @param string $type Error type, e.g. "urn:ietf:params:jmap:error:notJSON"
      * @param int $status HTTP error status, e.g. 400
-     * @param array $error Additional associative error data that is merged with type and status
+     * @param array<string, mixed> $error Additional associative error data that is merged with type and status
      */
     public function __construct(string $type, int $status, array $error)
     {

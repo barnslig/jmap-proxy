@@ -16,10 +16,10 @@ use OutOfBoundsException;
  */
 class Session implements JsonSerializable
 {
-    /** @var Map */
+    /** @var Map<string, Capability> */
     private $capabilities;
 
-    /** @var Map */
+    /** @var Map<string, object> */
     private $accounts;
 
     public function __construct()
@@ -31,7 +31,6 @@ class Session implements JsonSerializable
     /**
      * Add a capability to the JMAP server
      *
-     * @param string $key Capability key, usually prefixed with `urn:ietf:params:jmap:`
      * @param Capability $capability Instance of the corresponding capability class
      * @return void
      */
@@ -54,8 +53,8 @@ class Session implements JsonSerializable
     /**
      * Resolves a list of capabilities to a map of methods
      *
-     * @param Vector $usedCapabilities - Vector of Strings of capabilities
-     * @return Map Map where the keys are full method names (e.g. "Email/get") and the values are Methods
+     * @param Vector<string> $usedCapabilities Vector of capabilities
+     * @return Map<string, Method> The keys are full method names (e.g. "Email/get")
      * @throws UnknownCapabilityException When an unknown capability is used
      */
     public function resolveMethods(Vector $usedCapabilities): Map
@@ -79,8 +78,8 @@ class Session implements JsonSerializable
      * Resolves a method call into a method response
      *
      * @param Invocation $methodCall - Client-provided method call
-     * @param Vector $methodResponses - Vector of Invocations of already processed method calls
-     * @param Map $methods - Map of available methods within this request
+     * @param Vector<Invocation> $methodResponses - Vector of already processed method calls
+     * @param Map<string, Method> $methods - Map of available methods within this request
      * @return Invocation The method response
      */
     public function resolveMethodCall(Invocation $methodCall, Vector $methodResponses, Map $methods): Invocation
@@ -129,7 +128,7 @@ class Session implements JsonSerializable
      * Data used to serialize the Session into JSON
      *
      * @param bool $withState Whether the session's state hash should be included
-     * @return object
+     * @return array<string, mixed>
      */
     public function jsonSerialize(bool $withState = true)
     {

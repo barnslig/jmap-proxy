@@ -6,21 +6,24 @@ use JP\JMAP\Capability;
 
 class MailCapability extends Capability
 {
-    /** @var array */
+    /** @var array<string, mixed> */
     private $options;
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct($options = [])
     {
         parent::__construct();
 
-        $this->options = [
+        $this->options = array_merge([
             "maxMailboxesPerEmail" => null,
             "maxMailboxDepth" => null,
             "maxSizeMailboxName" => 100,
             "maxSizeAttachmentsPerEmail" => 50000000,
             "emailQuerySortOptions" => [],
             "mayCreateTopLevelMailbox" => true
-        ];
+        ], $options);
 
         $this->addType(new MailCapability\MailboxType(), [
             new MailCapability\MailboxType\MailboxGetMethod()

@@ -27,12 +27,12 @@ final class SessionTest extends TestCase
      * Asserts that an Invocation is equal to an Array representation
      *
      * @param Invocation $actual
-     * @param array $expected
-     * @throws PHPUnit\Framework\ExpectationFailedException
+     * @param array<mixed> $expected
+     * @throws \PHPUnit\Framework\ExpectationFailedException
      */
     protected function assertInvocation(Invocation $actual, array $expected)
     {
-        $arrActual = json_decode(json_encode($actual));
+        $arrActual = json_decode(json_encode($actual, JSON_THROW_ON_ERROR));
         $this->assertEquals($arrActual, $expected);
     }
 
@@ -191,7 +191,7 @@ final class SessionTest extends TestCase
 
         // 4. compare result
         $methodResponses = $response->getMethodResponses();
-        $this->assertInvocation($methodResponses[0], ["Foo/echo", (object)["bar" => "baz"], "#0"]);
-        $this->assertInvocation($methodResponses[1], ["Foo/echo", (object)["bla" => "baz"], "#1"]);
+        $this->assertInvocation($methodResponses->get(0), ["Foo/echo", (object)["bar" => "baz"], "#0"]);
+        $this->assertInvocation($methodResponses->get(1), ["Foo/echo", (object)["bla" => "baz"], "#1"]);
     }
 }

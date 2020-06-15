@@ -5,6 +5,7 @@ namespace JP\JMAP;
 use Ds\Map;
 use Ds\Vector;
 use JP\JMAP\Schemas\Validator;
+use OverflowException;
 
 /**
  * JMAP request based on a JSON object that needs to be validated
@@ -14,23 +15,23 @@ use JP\JMAP\Schemas\Validator;
 class Request
 {
     /**
-     * Capability identifiers, the Vector consists of strings
+     * Capability identifiers
      *
-     * @var Vector
+     * @var Vector<string>
      */
     private $using;
 
     /**
-     * Method calls, the Vector consists of Invocation instances
+     * Method calls
      *
      * @var Vector<Invocation>
      */
     private $methodCalls;
 
     /**
-     * Object ID mappings, the Map consists of string keys and values
+     * Object ID mappings
      *
-     * @var Map
+     * @var Map<string, string>
      */
     private $createdIds;
 
@@ -40,11 +41,11 @@ class Request
      * During construction the JSON request body gets validated against a
      * JSON schema and method calls are mapped into Invocation instances.
      *
-     * @param object $data Parsed JSON request body
+     * @param mixed $data Parsed JSON request body
      * @param int $maxCallsInRequest Maximum calls a request may have
      * @throws OverflowException When maxCallsInRequest gets exceeded
      */
-    public function __construct(object $data, int $maxCallsInRequest)
+    public function __construct($data, int $maxCallsInRequest)
     {
         $validator = new Validator();
         $validator->validate($data, "http://jmap.io/Request.json#");
@@ -54,7 +55,7 @@ class Request
         $this->using->sort();
 
         if (count($data->methodCalls) > $maxCallsInRequest) {
-            throw new \OverflowException("The maximum number of " . $maxCallsInRequest . " method calls got exceeded.");
+            throw new OverflowException("The maximum number of " . $maxCallsInRequest . " method calls got exceeded.");
         }
 
         // Turn method calls into Invocation instances
@@ -65,16 +66,31 @@ class Request
         $this->createdIds = new Map($data->createdIds ?? []);
     }
 
+    /**
+     * Get used capabilities
+     *
+     * @return Vector<string> Used capabilities
+     */
     public function getUsedCapabilities(): Vector
     {
         return $this->using;
     }
 
+    /**
+     * Get method calls
+     *
+     * @return Vector<Invocation> Method calls
+     */
     public function getMethodCalls(): Vector
     {
         return $this->methodCalls;
     }
 
+    /**
+     * Get created IDs
+     *
+     * @return Map<string, string> Created IDs
+     */
     public function getCreatedIds(): Map
     {
         return $this->createdIds;

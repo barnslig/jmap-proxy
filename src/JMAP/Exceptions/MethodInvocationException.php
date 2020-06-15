@@ -18,6 +18,7 @@ class MethodInvocationException extends RuntimeException
      * Construct a new MethodInvocationException
      *
      * @param string $type Error type, see https://tools.ietf.org/html/rfc8620#section-3.6.2
+     * @param mixed ...$params
      */
     public function __construct(string $type, ...$params)
     {

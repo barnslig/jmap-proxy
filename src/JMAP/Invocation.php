@@ -17,7 +17,7 @@ class Invocation implements JsonSerializable
     /** @var string */
     private $name = '';
 
-    /** @var Map */
+    /** @var Map<string, mixed> */
     private $arguments = null;
 
     /** @var string */
@@ -27,7 +27,7 @@ class Invocation implements JsonSerializable
      * Construct a new Invocation
      *
      * @param string $name Method name, e.g. "Mailbox/get"
-     * @param object $arguments Method arguments/response
+     * @param array<string, mixed> $arguments Method arguments/response
      * @param string $methodCallId Client-provided Method Call ID, e.g. "#0"
      */
     public function __construct(string $name, array $arguments, string $methodCallId)
@@ -50,7 +50,7 @@ class Invocation implements JsonSerializable
     /**
      * Get the invocation's arguments
      *
-     * @return Map
+     * @return Map<string, mixed>
      */
     public function getArguments(): Map
     {
@@ -70,7 +70,7 @@ class Invocation implements JsonSerializable
     /**
      * Return a new instance with the specified arguments
      *
-     * @param array $arguments
+     * @param array<string, mixed> $arguments
      * @return static
      */
     public function withArguments(array $arguments)
@@ -97,8 +97,9 @@ class Invocation implements JsonSerializable
      * Resolve result references based on a Vector of Invocations
      *
      * @see https://tools.ietf.org/html/rfc8620#section-3.7
-     * @param Vector $responses Vector of already computed Invocation response instances
+     * @param Vector<Invocation> $responses Vector of already computed Invocation response instances
      * @throws MethodInvocationException When a key is contained both in normal and referenced form
+     * @return void
      */
     public function resolveResultReferences(Vector $responses)
     {

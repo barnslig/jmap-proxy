@@ -30,10 +30,10 @@ class ResultReference
     /**
      * Construct a new ResultReference
      *
-     * @param object $data Parsed result reference JSON
+     * @param mixed $data Parsed result reference JSON
      * @throws MethodInvocationException When the data cannot be validated
      */
-    public function __construct(object $data)
+    public function __construct($data)
     {
         $validator = new Validator();
         try {
@@ -50,9 +50,10 @@ class ResultReference
     /**
      * Resolve the reference from a Vector of response Invocations
      *
-     * @param Vector $responses Vector of already computed response Invocations
+     * @param Vector<Invocation> $responses Vector of already computed response Invocations
      * @throws MethodInvocationException When there is not matching response for the methodCallId/name combination
      * @throws MethodInvocationException When the path could not be resolved
+     * @return mixed Result at pointer location
      */
     public function resolve(Vector $responses)
     {

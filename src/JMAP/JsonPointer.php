@@ -3,6 +3,8 @@
 namespace JP\JMAP;
 
 use Ds\Vector;
+use InvalidArgumentException;
+use OutOfRangeException;
 
 /**
  * JMAP ResultReference JSON Pointer implementation
@@ -24,7 +26,7 @@ use Ds\Vector;
  */
 class JsonPointer
 {
-    /** @var Vector */
+    /** @var Vector<string> */
     private $path;
 
     /**
@@ -43,7 +45,7 @@ class JsonPointer
 
         // Make sure the first path item matches the whole document
         if ($pathItems->first() !== "" && $pathItems->first() !== "#") {
-            throw new \InvalidArgumentException("Path does not start with whole document");
+            throw new InvalidArgumentException("Path does not start with whole document");
         }
 
         // Reset first item so URI fragments starting with #/ work
@@ -60,7 +62,7 @@ class JsonPointer
     /**
      * Create a new instance from a path Vector
      *
-     * @param Vector $path JSON Pointer Vector, as created by self::fromString
+     * @param Vector<string> $path JSON Pointer Vector, as created by self::fromString
      * @return JsonPointer New instance evaluating this pointer
      */
     public static function fromPath(Vector $path): JsonPointer
@@ -73,7 +75,7 @@ class JsonPointer
     /**
      * Get the parsed Pointer path
      *
-     * @return Vector Pointer path
+     * @return Vector<string> Pointer path
      */
     public function getPath(): Vector
     {
@@ -92,13 +94,13 @@ class JsonPointer
     {
         if ($obj instanceof \stdClass) {
             if (!property_exists($obj, $key)) {
-                throw new \OutOfRangeException("Failed to fetch key: '" . $key . "'");
+                throw new OutOfRangeException("Failed to fetch key: '" . $key . "'");
             }
             return $obj->{$key};
         }
 
         if (!isset($obj[$key])) {
-            throw new \OutOfRangeException("Failed to fetch key: '" . $key . "'");
+            throw new OutOfRangeException("Failed to fetch key: '" . $key . "'");
         }
 
         return $obj[$key];
@@ -108,7 +110,7 @@ class JsonPointer
      * Evaluate the JSON pointer onto an object
      *
      * @param mixed $data Decoded JSON object to apply the pointer onto
-     * @return object Result at pointer location
+     * @return mixed Result at pointer location
      */
     public function evaluate($data)
     {

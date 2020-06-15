@@ -16,9 +16,9 @@ class Response implements JsonSerializable
     private $session;
 
     /**
-     * Method responses Vector consisting of Invocation instances
+     * Method responses Vector
      *
-     * @var Vector */
+     * @var Vector<Invocation> */
     private $methodResponses;
 
     /**
@@ -36,6 +36,7 @@ class Response implements JsonSerializable
      * Add a method response to the response
      *
      * @param Invocation $methodResponse
+     * @return void
      */
     public function addMethodResponse(Invocation $methodResponse)
     {
@@ -45,7 +46,7 @@ class Response implements JsonSerializable
     /**
      * Get all method responses
      *
-     * @return Vector A Vector of Invocations
+     * @return Vector<Invocation> Vector of method responses
      */
     public function getMethodResponses(): Vector
     {

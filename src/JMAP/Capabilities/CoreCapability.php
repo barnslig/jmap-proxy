@@ -3,27 +3,20 @@
 namespace JP\JMAP\Capabilities;
 
 use JP\JMAP\Capability;
-use JP\JMAP\Helper;
 
 class CoreCapability extends Capability
 {
-    /** @var array */
+    /** @var array<string, mixed> */
     private $options;
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct($options = [])
     {
         parent::__construct();
 
-        $this->options = Helper::arrayPick($options, [
-            "maxSizeUpload",
-            "maxConcurrentUpload",
-            "maxSizeRequest",
-            "maxConcurrentRequests",
-            "maxCallsInRequest",
-            "maxObjectsInGet",
-            "maxObjectsInSet",
-            "collationAlgorithms"
-        ]);
+        $this->options = $options;
 
         $this->addType(new CoreCapability\CoreType(), [
             new CoreCapability\CoreType\CoreEchoMethod()

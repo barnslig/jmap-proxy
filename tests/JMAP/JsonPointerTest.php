@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 final class JsonPointerTest extends TestCase
 {
+    /** @var string */
     public static $json = '{
         "foo": ["bar", "baz"],
         "": 0,

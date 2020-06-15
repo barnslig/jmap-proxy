@@ -4,6 +4,7 @@ namespace JP\JMAP\Schemas;
 
 use Opis\JsonSchema\ISchemaLoader;
 use Opis\JsonSchema\Schema;
+use RuntimeException;
 
 /**
  * JSON Schema loader that maps a directory to an URI
@@ -36,8 +37,15 @@ class DirLoader implements ISchemaLoader
                 $path = $dir . '/' . ltrim($path, '/');
 
                 if (file_exists($path)) {
+                    // Load the schema file
+                    $rawSchema = file_get_contents($path);
+                    if ($rawSchema === false) {
+                        throw new RuntimeException("Cannot load schema " . $path);
+                    }
+
                     // Create a schema object
-                    $schema = Schema::fromJsonString(file_get_contents($path));
+                    $schema = Schema::fromJsonString($rawSchema);
+
                     // Save it for reuse
                     $this->loaded[$uri] = $schema;
 
