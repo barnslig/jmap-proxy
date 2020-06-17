@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-use JP\JMAP\JMAP;
+use barnslig\JMAP\Core\JMAP;
+use barnslig\JMAP\Mail\MailCapability;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 
@@ -10,7 +11,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 // SETUP JMAP
 $jmap = new JMAP();
-$jmap->getSession()->addCapability(new JP\JMAP\Capabilities\MailCapability());
+$jmap->getSession()->addCapability(new MailCapability());
 
 
 // SETUP ROUTER
