@@ -6,10 +6,18 @@ php:
 cache:
   directories:
     - $HOME/.composer/cache
+    - $HOME/.sonar/cache
+
+addons:
+  sonarcloud:
+    organization: "barnslig"
+    token:
+      secure: "SE2qHTHwXAazA07w6PutpJCXaLinRUn+sFdHgxZzrcbysjQbm6D42PyHiQzS1M3vyRnN7R/lelkfLbPlhxyllGN7ZB7kUnbiY4Q+OOK3rGmKIoNZ3pQSbLDwKz1KlZP1rdccmGnHbgBasFzRuR1n54TH3Yte1wavMLBP9C7XYwaMHuyEWSsTJDQtw6RY6anf8Vl0Srb1aJAlrFV4XeC/H/bD+IiHuVFbLseU1SsUbFo4udbE1RgX71Q2CB4naKYHNhn4JvlzuZZthFWgrAiZ92LDjDdox6hnYbq3HMmw9XYiHB3KfAr1i4QtoGMHGkAXawyYMpHhNLsJS4apEukGTkbM7qfHjPuREFdaKafoREjr/0Ds38c3uT1HC3O5h2bCiqO5PY7GEEsu6EbRD7fAYknP0NXu38evlkcIFMFsj8su7rc5fZCrqEH2q4EmxK4sJNqePW551VmsMvCKuN+2otluastQFNpbYZAXtK+E5Sr3IUMmcI0WjyN6cmBCtIbckr5M3KNmQAVDhJU/BSl2FAmEUeJpDPzTES4za+p3f2PQqcpRgETJ1rCicrYZhY5/RLF2CR4XD/+XlSKi/0ReK9J9Jy6YroJmlWV9qm7WN/EHdZ0+NqtVJtkmHSGV5NZx0phEAMTmyuU6UjmGFjA7YBdolF4ZKNeOITcTYYV2SB8="
 
 install:
   - travis_retry composer install
 
 script:
   - composer lint
-  - composer test
+  - composer test -- --whitelist src --log-junit reports/php/phpunit.xml --coverage-xml reports/php/phpunit.coverage.xml
+  - sonar-scanner
