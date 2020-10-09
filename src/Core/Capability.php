@@ -17,14 +17,6 @@ use JsonSerializable;
  */
 abstract class Capability implements JsonSerializable
 {
-    /** @var Map<string, Method> */
-    private $methods;
-
-    public function __construct()
-    {
-        $this->methods = new Map();
-    }
-
     /**
      * Get further information about this capability
      *
@@ -38,35 +30,18 @@ abstract class Capability implements JsonSerializable
     abstract public function getCapabilities(): object;
 
     /**
+     * Get Map of methods provided by this capability
+     *
+     * @return Map<string, Method>
+     */
+    abstract public function getMethods(): Map;
+
+    /**
      * Get the capability identifier
      *
      * @return string Capability identifier, e.g. urn:ietf:params:jmap:core
      */
     abstract public function getName(): string;
-
-    /**
-     * Add a type with its methods
-     *
-     * @param Type $type Type to be added
-     * @param array<Method> $methods Array of Methods
-     * @return void
-     */
-    public function addType(Type $type, array $methods): void
-    {
-        foreach ($methods as $method) {
-            $this->methods->put($type->getName() . "/" . $method->getName(), $method);
-        }
-    }
-
-    /**
-     * Get Map of all methods provided by this capability
-     *
-     * @return Map<string, Method>
-     */
-    public function getMethods(): Map
-    {
-        return $this->methods;
-    }
 
     public function jsonSerialize()
     {

@@ -8,11 +8,6 @@ use barnslig\JMAP\Core\Session;
 
 class CoreEchoMethod implements Method
 {
-    public function getName(): string
-    {
-        return "echo";
-    }
-
     public function handle(Invocation $request, Session $session): Invocation
     {
         return $request;

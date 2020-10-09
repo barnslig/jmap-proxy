@@ -89,7 +89,8 @@ class Session implements JsonSerializable
             $methodCall->resolveResultReferences($methodResponses);
 
             // 2. Execute the corresponding method
-            $methodCallable = $methods->get($methodCall->getName());
+            $method = $methods->get($methodCall->getName());
+            $methodCallable = new $method();
             $methodResponse = $methodCallable->handle($methodCall, $this);
         } catch (OutOfBoundsException $exception) {
             $methodResponse = $methodCall->withName("error")->withArguments(["type" => "unknownMethod"]);

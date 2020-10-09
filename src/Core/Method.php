@@ -12,13 +12,6 @@ namespace barnslig\JMAP\Core;
 interface Method
 {
     /**
-     * Get the method name
-     *
-     * @return string Method name, e.g. echo
-     */
-    public function getName(): string;
-
-    /**
      * Invoke the method
      *
      * @param Invocation $request Request invocation

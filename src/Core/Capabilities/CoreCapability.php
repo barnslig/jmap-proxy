@@ -3,6 +3,7 @@
 namespace barnslig\JMAP\Core\Capabilities;
 
 use barnslig\JMAP\Core\Capability;
+use Ds\Map;
 
 class CoreCapability extends Capability
 {
@@ -14,18 +15,19 @@ class CoreCapability extends Capability
      */
     public function __construct($options = [])
     {
-        parent::__construct();
-
         $this->options = $options;
-
-        $this->addType(new CoreCapability\CoreType(), [
-            new CoreCapability\CoreType\CoreEchoMethod()
-        ]);
     }
 
     public function getCapabilities(): object
     {
         return (object)$this->options;
+    }
+
+    public function getMethods(): Map
+    {
+        return new Map([
+            "Core/echo" => CoreCapability\CoreType\CoreEchoMethod::class,
+        ]);
     }
 
     public function getName(): string
