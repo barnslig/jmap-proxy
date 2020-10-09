@@ -2,17 +2,13 @@
 
 namespace barnslig\JMAP\Core;
 
-use Ds\Vector;
 use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
-use barnslig\JMAP\Core\Schemas\ValidationException;
-use barnslig\JMAP\Core\Schemas\Validator;
+use Ds\Vector;
 
 /**
  * Result reference
  *
- * This class implements:
- * - Validating a ResultReference JSON object
- * - Resolving the Result Reference
+ * This class implements resolving the Result Reference
  *
  * @see https://tools.ietf.org/html/rfc8620#section-3.7
  */
@@ -30,21 +26,15 @@ class ResultReference
     /**
      * Construct a new ResultReference
      *
-     * @param mixed $data Parsed result reference JSON
-     * @throws MethodInvocationException When the data cannot be validated
+     * @param string $resultOf Method call ID of a previous method call in the current request
+     * @param string $name Required name of a response to that method call
+     * @param string $path A pointer into the arguments of the response selected via the name and resultOf properties
      */
-    public function __construct($data)
+    public function __construct(string $resultOf, string $name, string $path)
     {
-        $validator = new Validator();
-        try {
-            $validator->validate($data, "http://jmap.io/ResultReference.json#");
-        } catch (ValidationException $exception) {
-            throw new MethodInvocationException("invalidResultReference", $exception->getMessage());
-        }
-
-        $this->resultOf = $data->resultOf;
-        $this->name = $data->name;
-        $this->path = $data->path;
+        $this->resultOf = $resultOf;
+        $this->name = $name;
+        $this->path = $path;
     }
 
     /**
