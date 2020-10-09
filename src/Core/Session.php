@@ -116,13 +116,13 @@ class Session implements JsonSerializable
         $methods = $this->resolveMethods($request->getUsedCapabilities());
 
         // 2. For each methodCall, execute the corresponding method, then add it to the response
-        $response = new Response($this);
+        $methodResponses = new Vector();
         foreach ($request->getMethodCalls() as $methodCall) {
-            $methodResponse = $this->resolveMethodCall($methodCall, $response->getMethodResponses(), $methods);
-            $response->addMethodResponse($methodResponse);
+            $methodResponse = $this->resolveMethodCall($methodCall, $methodResponses, $methods);
+            $methodResponses->push($methodResponse);
         }
 
-        return $response;
+        return new Response($this, $methodResponses);
     }
 
     /**

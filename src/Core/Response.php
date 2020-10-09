@@ -25,32 +25,12 @@ class Response implements JsonSerializable
      * Construct a new Response instance
      *
      * @param Session $session Current session, used to determine the `sessionState`
+     * @param Vector<Invocation> $methodResponses Method responses
      */
-    public function __construct(Session $session)
+    public function __construct(Session $session, Vector $methodResponses)
     {
         $this->session = $session;
-        $this->methodResponses = new Vector();
-    }
-
-    /**
-     * Add a method response to the response
-     *
-     * @param Invocation $methodResponse
-     * @return void
-     */
-    public function addMethodResponse(Invocation $methodResponse)
-    {
-        $this->methodResponses->push($methodResponse);
-    }
-
-    /**
-     * Get all method responses
-     *
-     * @return Vector<Invocation> Vector of method responses
-     */
-    public function getMethodResponses(): Vector
-    {
-        return $this->methodResponses;
+        $this->methodResponses = $methodResponses;
     }
 
     public function jsonSerialize()

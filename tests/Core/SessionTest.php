@@ -4,11 +4,13 @@ namespace JP\Tests\JMAP;
 
 use Ds\Map;
 use Ds\Vector;
+use barnslig\JMAP\Core\Capabilities\CoreCapability;
+use barnslig\JMAP\Core\Capabilities\CoreCapability\CoreType\CoreEchoMethod;
 use barnslig\JMAP\Core\Capability;
+use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
+use barnslig\JMAP\Core\Exceptions\UnknownCapabilityException;
 use barnslig\JMAP\Core\Invocation;
 use barnslig\JMAP\Core\Method;
-use barnslig\JMAP\Core\Exceptions\UnknownCapabilityException;
-use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
 use barnslig\JMAP\Core\Request;
 use barnslig\JMAP\Core\Session;
 use PHPUnit\Framework\TestCase;
@@ -37,26 +39,6 @@ final class SessionTest extends TestCase
     }
 
     /**
-     * Create a JMAP echo method
-     *
-     * @return Method Echo method
-     */
-    protected function createEchoMethod(): Method
-    {
-        return new class implements Method {
-            public function getName(): string
-            {
-                return "echo";
-            }
-
-            public function handle(Invocation $request, Session $session): Invocation
-            {
-                return $request;
-            }
-        };
-    }
-
-    /**
      * Create a JMAP method that raises an exception
      *
      * @return Method Raising method
@@ -64,11 +46,6 @@ final class SessionTest extends TestCase
     protected function createRaisingMethod(): Method
     {
         return new class implements Method {
-            public function getName(): string
-            {
-                return "raising";
-            }
-
             public function handle(Invocation $request, Session $session): Invocation
             {
                 throw new MethodInvocationException("test", "testmessage");
@@ -91,18 +68,28 @@ final class SessionTest extends TestCase
 
     public function testResolveMethods()
     {
-        $capabilityMethods = ["Foo/bar" => null];
+        $capability = new class extends Capability {
+            public function getCapabilities(): object
+            {
+                return (object)[];
+            }
 
-        $capability = $this->createStub(Capability::class);
-        $capability->method('getMethods')
-            ->willReturn(new Map($capabilityMethods));
-        $capability->method("getName")
-            ->willReturn("urn:ietf:params:jmap:test");
+            public function getMethods(): Map
+            {
+                return new Map([
+                    "Foo/bar" => null
+                ]);
+            }
 
+            public function getName(): string
+            {
+                return "urn:ietf:params:jmap:test";
+            }
+        };
         $this->session->addCapability($capability);
 
         $methods = $this->session->resolveMethods(new Vector(["urn:ietf:params:jmap:test"]));
-        $this->assertEquals($methods->toArray(), $capabilityMethods);
+        $this->assertEquals($methods->toArray(), ["Foo/bar" => null]);
     }
 
     public function testResolveMethodCallUnknownMethod()
@@ -131,53 +118,45 @@ final class SessionTest extends TestCase
 
     public function testResolveMethodCall()
     {
-        $methodCall = new Invocation("Foo/echo", [
+        $methodCall = new Invocation("Core/echo", [
             "#bla" => (object)[
                 "resultOf" => "#0",
-                "name" => "Foo/echo",
+                "name" => "Core/echo",
                 "path" => "/bar"
             ]
         ], "#1");
         $methodResponses = new Vector([
-            new Invocation("Foo/echo", ["bar" => "baz"], "#0")
+            new Invocation("Core/echo", ["bar" => "baz"], "#0")
         ]);
         $methods = new Map([
-            "Foo/echo" => $this->createEchoMethod()
+            "Core/echo" => CoreEchoMethod::class
         ]);
 
         $response = $this->session->resolveMethodCall($methodCall, $methodResponses, $methods);
 
-        $this->assertInvocation($response, ["Foo/echo", (object)["bla" => "baz"], "#1"]);
+        $this->assertInvocation($response, ["Core/echo", (object)["bla" => "baz"], "#1"]);
     }
 
     public function testDispatch()
     {
-        // 1. add test capability with Foo/bar method
-        $capability = $this->createStub(Capability::class);
-        $capability->method("getMethods")
-            ->willReturn(new Map([
-                "Foo/echo" => $this->createEchoMethod()
-            ]));
-        $capability->method("getName")
-            ->willReturn("urn:ietf:params:jmap:test");
+        // 1. add core capability with Core/echo method
+        $this->session->addCapability(new CoreCapability());
 
-        $this->session->addCapability($capability);
-
-        // 2. create request that calls Foo/echo method
+        // 2. create request that calls Core/echo method
         $request = new Request((object)[
-            "using" => ["urn:ietf:params:jmap:test"],
+            "using" => ["urn:ietf:params:jmap:core"],
             "methodCalls" => [
                 [
-                    "Foo/echo",
+                    "Core/echo",
                     (object)["bar" => "baz"],
                     "#0"
                 ],
                 [
-                    "Foo/echo",
+                    "Core/echo",
                     (object)[
                         "#bla" => (object)[
                             "resultOf" => "#0",
-                            "name" => "Foo/echo",
+                            "name" => "Core/echo",
                             "path" => "/bar"
                         ]
                     ],
@@ -190,8 +169,18 @@ final class SessionTest extends TestCase
         $response = $this->session->dispatch($request);
 
         // 4. compare result
-        $methodResponses = $response->getMethodResponses();
-        $this->assertInvocation($methodResponses->get(0), ["Foo/echo", (object)["bar" => "baz"], "#0"]);
-        $this->assertInvocation($methodResponses->get(1), ["Foo/echo", (object)["bla" => "baz"], "#1"]);
+        $expectedResponse = [
+            "methodResponses" => [
+                ["Core/echo", ["bar" => "baz"], "#0"],
+                ["Core/echo", ["bla" => "baz"], "#1"]
+            ],
+            "createdIds" => (object)[],
+            "sessionState" => $this->session->getState()
+        ];
+
+        $this->assertEquals(
+            json_encode($response),
+            json_encode($expectedResponse)
+        );
     }
 }
