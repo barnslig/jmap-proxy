@@ -75,57 +75,6 @@ class Session implements JsonSerializable
     }
 
     /**
-     * Resolves a method call into a method response
-     *
-     * @param Invocation $methodCall - Client-provided method call
-     * @param Vector<Invocation> $methodResponses - Vector of already processed method calls
-     * @param Map<string, Method> $methods - Map of available methods within this request
-     * @return Invocation The method response
-     */
-    public function resolveMethodCall(Invocation $methodCall, Vector $methodResponses, Map $methods): Invocation
-    {
-        try {
-            // 1. Resolve references to previous method results (See RFC 8620 Section  3.7)
-            $methodCall->resolveResultReferences($methodResponses);
-
-            // 2. Execute the corresponding method
-            $method = $methods->get($methodCall->getName());
-            $methodCallable = new $method();
-            $methodResponse = $methodCallable->handle($methodCall, $this);
-        } catch (OutOfBoundsException $exception) {
-            $methodResponse = $methodCall->withName("error")->withArguments(["type" => "unknownMethod"]);
-        } catch (MethodInvocationException $exception) {
-            $args = ["type" => $exception->getType()];
-            if ($exception->getMessage()) {
-                $args["description"] = $exception->getMessage();
-            }
-            $methodResponse = $methodCall->withName("error")->withArguments($args);
-        }
-        return $methodResponse;
-    }
-
-    /**
-     * Dispatch a JMAP request and turn it into a JMAP response
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function dispatch(Request $request): Response
-    {
-        // 1. Build map with all supported methods of the used capabilities
-        $methods = $this->resolveMethods($request->getUsedCapabilities());
-
-        // 2. For each methodCall, execute the corresponding method, then add it to the response
-        $methodResponses = new Vector();
-        foreach ($request->getMethodCalls() as $methodCall) {
-            $methodResponse = $this->resolveMethodCall($methodCall, $methodResponses, $methods);
-            $methodResponses->push($methodResponse);
-        }
-
-        return new Response($this, $methodResponses);
-    }
-
-    /**
      * Data used to serialize the Session into JSON
      *
      * @param bool $withState Whether the session's state hash should be included

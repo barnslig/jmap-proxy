@@ -3,13 +3,9 @@
 namespace barnslig\JMAP\Core\Schemas;
 
 use Ds\Map;
-use Opis\JsonSchema\ValidationError as OpisValidationError;
-use Opis\JsonSchema\ValidationResult as OpisValidationResult;
-use Opis\JsonSchema\Validator as OpisValidator;
-use OpisErrorPresenter\Implementation\MessageFormatterFactory;
-use OpisErrorPresenter\Implementation\PresentedValidationErrorFactory;
-use OpisErrorPresenter\Implementation\Strategies\BestMatchError;
-use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
+use Opis\JsonSchema\ISchemaLoader;
+use Opis\JsonSchema\IValidator;
+use OpisErrorPresenter\Contracts\ValidationErrorPresenter;
 
 /**
  * JSON Schema Validator for JMAP
@@ -18,38 +14,24 @@ use OpisErrorPresenter\Implementation\ValidationErrorPresenter;
  * JMAP requests, makes them available via URI and throws a human-readable
  * error message on validation failure.
  */
-class Validator
+class Validator implements ValidatorInterface
 {
-    /** @var DirLoader */
+    /** @var ISchemaLoader */
     private $loader;
 
-    /** @var OpisValidator */
+    /** @var IValidator */
     private $validator;
 
     /** @var ValidationErrorPresenter */
     private $presenter;
 
-    public function __construct()
+    public function __construct(ISchemaLoader $loader, IValidator $validator, ValidationErrorPresenter $presenter)
     {
-        $this->loader = new DirLoader();
-        $this->loader->registerPath(__DIR__ . "/schemas/", "http://jmap.io");
-
-        $this->validator = new OpisValidator(null, $this->loader);
-
-        $this->presenter = new ValidationErrorPresenter(
-            new PresentedValidationErrorFactory(new MessageFormatterFactory()),
-            new BestMatchError()
-        );
+        $this->loader = $loader;
+        $this->validator = $validator;
+        $this->presenter = $presenter;
     }
 
-    /**
-     * Validate data against a schema
-     *
-     * @param object|Map $data Data that should be validated
-     * @param string $uri URI of the JSON schema, e.g. http://jmap.io/Request.json#
-     * @throws ValidationException When the validation fails
-     * @return void
-     */
     public function validate($data, string $uri): void
     {
         /* Convert Ds\Map structures so we can validate them.

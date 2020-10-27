@@ -29,7 +29,11 @@
     "laminas/laminas-httphandlerrunner": "^1.1",
     "php-ds/php-ds": "^1.2",
     "opis/json-schema": "^1.0",
-    "m1x0n/opis-json-schema-error-presenter": "^0.5.1"
+    "m1x0n/opis-json-schema-error-presenter": "^0.5.1",
+    "laminas/laminas-servicemanager": "^3.4",
+    "psr/http-message": "^1.0",
+    "psr/http-server-handler": "^1.0",
+    "psr/http-factory": "^1.0"
   },
   "autoload": {
     "psr-4": {
