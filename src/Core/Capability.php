@@ -32,7 +32,18 @@ abstract class Capability implements JsonSerializable
     /**
      * Get Map of methods provided by this capability
      *
-     * @return Map<string, Method>
+     * The map values are fully qualified class names to be instantiated later.
+     *
+     * @see https://www.php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class.class
+     * @example
+     *   public function getMethods(): Map
+     *   {
+     *     return new Map([
+     *       "Core/echo" => CoreCapability\CoreType\CoreEchoMethod::class,
+     *     ]);
+     *   }
+     *
+     * @return Map<string, class-string>
      */
     abstract public function getMethods(): Map;
 

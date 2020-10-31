@@ -1,36 +1,33 @@
 <?php
 
-namespace JP\Tests\JMAP\Controllers;
+namespace barnslig\JMAP\Tests\Core\Controllers;
 
 use barnslig\JMAP\Core\Controllers\SessionController;
-use barnslig\JMAP\Core\Request;
 use barnslig\JMAP\Core\RequestContext;
 use barnslig\JMAP\Core\Schemas\ValidatorInterface;
 use barnslig\JMAP\Core\Session;
+use barnslig\JMAP\Tests\Core\Stubs\PassingValidatorStub;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 
 final class SessionControllerTest extends TestCase
 {
-    /**
-     * Create a validator that is always passing
-     *
-     * @return ValidatorInterface Always passing validator
-     */
-    protected function createPassingValidator(): ValidatorInterface
-    {
-        return new class implements ValidatorInterface
-        {
-            public function validate($data, string $uri): void
-            {
-            }
-        };
-    }
+    /** @var Session */
+    protected $session;
+
+    /** @var ValidatorInterface */
+    protected $validator;
+
+    /** @var RequestContext */
+    protected $context;
+
+    /** @var SessionController */
+    protected $controller;
 
     public function setUp(): void
     {
         $this->session = new Session();
-        $this->validator = $this->createPassingValidator();
+        $this->validator = new PassingValidatorStub();
         $this->context = new RequestContext($this->session, $this->validator);
 
         $this->controller = new SessionController($this->context, []);

@@ -1,60 +1,41 @@
 <?php
 
-namespace JP\Tests\JMAP\Controllers;
+namespace barnslig\JMAP\Tests\Core\Controllers;
 
-use Ds\Map;
-use Ds\Vector;
 use barnslig\JMAP\Core\Capabilities\CoreCapability;
 use barnslig\JMAP\Core\Capabilities\CoreCapability\CoreType\CoreEchoMethod;
 use barnslig\JMAP\Core\Controllers\ApiController;
-use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
 use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Method;
 use barnslig\JMAP\Core\Request;
 use barnslig\JMAP\Core\RequestContext;
 use barnslig\JMAP\Core\Schemas\ValidatorInterface;
-use barnslig\JMAP\Core\Schemas\ValidationException;
 use barnslig\JMAP\Core\Session;
+use barnslig\JMAP\Tests\Core\Stubs\FailingValidatorStub;
+use barnslig\JMAP\Tests\Core\Stubs\PassingValidatorStub;
+use barnslig\JMAP\Tests\Core\Stubs\RaisingMethodStub;
+use Ds\Map;
+use Ds\Vector;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 
 final class ApiControllerTest extends TestCase
 {
-    /**
-     * Create a validator that is always passing
-     *
-     * @return ValidatorInterface Always passing validator
-     */
-    protected function createPassingValidator(): ValidatorInterface
-    {
-        return new class implements ValidatorInterface
-        {
-            public function validate($data, string $uri): void
-            {
-            }
-        };
-    }
+    /** @var Session */
+    private $session;
 
-    /**
-     * Create a validator that is always failing
-     *
-     * @return ValidatorInterface Always failing validator
-     */
-    protected function createFailingValidator(): ValidatorInterface
-    {
-        return new class implements ValidatorInterface
-        {
-            public function validate($data, string $uri): void
-            {
-                throw new ValidationException();
-            }
-        };
-    }
+    /** @var ValidatorInterface */
+    private $validator;
+
+    /** @var RequestContext */
+    private $context;
+
+    /** @var ApiController */
+    private $controller;
 
     public function setUp(): void
     {
         $this->session = new Session();
-        $this->validator = $this->createPassingValidator();
+        $this->validator = new PassingValidatorStub();
         $this->context = new RequestContext($this->session, $this->validator);
 
         $this->controller = new ApiController($this->context, [
@@ -72,8 +53,8 @@ final class ApiControllerTest extends TestCase
     protected function assertEqualsViaJson($actual, $expected)
     {
         $this->assertEquals(
-            json_decode(json_encode($actual), JSON_THROW_ON_ERROR),
-            json_decode(json_encode($expected), JSON_THROW_ON_ERROR)
+            json_decode(json_encode($actual) ?: "null", false, 512, JSON_THROW_ON_ERROR),
+            json_decode(json_encode($expected) ?: "null", false, 512, JSON_THROW_ON_ERROR)
         );
     }
 
@@ -118,12 +99,7 @@ final class ApiControllerTest extends TestCase
         $methodCall = new Invocation("Foo/raising", [], "#0");
         $methodResponses = new Vector();
         $methods = new Map([
-            "Foo/raising" => new class implements Method {
-                public function handle(Invocation $request, RequestContext $context): Invocation
-                {
-                    throw new MethodInvocationException("test", "testmessage");
-                }
-            }
+            "Foo/raising" => RaisingMethodStub::class
         ]);
 
         $response = $this->controller->resolveMethodCall($methodCall, $methodResponses, $methods);
@@ -216,7 +192,7 @@ final class ApiControllerTest extends TestCase
 
     public function testHandleNotRequest()
     {
-        $this->validator = $this->createFailingValidator();
+        $this->validator = new FailingValidatorStub();
         $this->context = new RequestContext($this->session, $this->validator);
         $this->controller = new ApiController($this->context, []);
 
@@ -286,7 +262,9 @@ final class ApiControllerTest extends TestCase
         $this->assertEquals(json_decode($res->getBody()), (object)[
             "type" => "urn:ietf:params:jmap:error:unknownCapability",
             "status" => 400,
-            "detail" => "The Request object used capability 'urn:ietf:params:jmap:test-unknown', which is not supported by this server"
+            "detail" =>
+                "The Request object used capability 'urn:ietf:params:jmap:test-unknown', " .
+                "which is not supported by this server"
         ]);
     }
 

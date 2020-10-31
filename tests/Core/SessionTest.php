@@ -1,18 +1,13 @@
 <?php
 
-namespace JP\Tests\JMAP;
+namespace barnslig\JMAP\Tests\Core;
 
-use Ds\Map;
-use Ds\Vector;
-use barnslig\JMAP\Core\Capabilities\CoreCapability;
 use barnslig\JMAP\Core\Capabilities\CoreCapability\CoreType\CoreEchoMethod;
 use barnslig\JMAP\Core\Capability;
-use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
 use barnslig\JMAP\Core\Exceptions\UnknownCapabilityException;
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Method;
-use barnslig\JMAP\Core\Request;
 use barnslig\JMAP\Core\Session;
+use Ds\Map;
+use Ds\Vector;
 use PHPUnit\Framework\TestCase;
 
 final class SessionTest extends TestCase
@@ -49,7 +44,7 @@ final class SessionTest extends TestCase
             public function getMethods(): Map
             {
                 return new Map([
-                    "Foo/bar" => null
+                    "Foo/bar" => CoreEchoMethod::class
                 ]);
             }
 
@@ -61,6 +56,6 @@ final class SessionTest extends TestCase
         $this->session->addCapability($capability);
 
         $methods = $this->session->resolveMethods(new Vector(["urn:ietf:params:jmap:test"]));
-        $this->assertEquals($methods->toArray(), ["Foo/bar" => null]);
+        $this->assertEquals($methods->toArray(), ["Foo/bar" => CoreEchoMethod::class]);
     }
 }

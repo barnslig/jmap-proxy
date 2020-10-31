@@ -41,8 +41,8 @@ class Request
      *
      * @param array<string> $using Set of capabilities the client wishes to use
      * @param array<array> $methodCalls Method calls to be processed
-     * @param array<string> $createdIds Optional. A map of a (client-specified) creation id to the id the server
-     *                                  assigned when a record was successfully created
+     * @param array<string, string> $createdIds Optional. A map of a (client-specified) creation id to the id the
+     *                                          server assigned when a record was successfully created
      */
     public function __construct(array $using, array $methodCalls, array $createdIds = [])
     {

@@ -10,6 +10,8 @@ abstract class QueryChangesMethod implements Method
 {
     public function handle(Invocation $request, RequestContext $context): Invocation
     {
-        return $context->getValidator()->validate($request, "http://jmap.io/methods/queryChanges.json#");
+        $context->getValidator()->validate($request, "http://jmap.io/methods/queryChanges.json#");
+
+        return $request;
     }
 }

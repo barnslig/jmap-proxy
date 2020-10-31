@@ -21,6 +21,12 @@ abstract class AbstractController implements RequestHandlerInterface
      */
     private $config;
 
+    /**
+     * Construct a new controller
+     *
+     * @param RequestContext $context JMAP request context
+     * @param array<string, mixed> $config JMAP core config
+     */
     public function __construct(RequestContext $context, array $config)
     {
         $this->context = $context;

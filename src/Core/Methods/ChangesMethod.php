@@ -10,6 +10,8 @@ abstract class ChangesMethod implements Method
 {
     public function handle(Invocation $request, RequestContext $context): Invocation
     {
-        return $context->getValidator()->validate($request, "http://jmap.io/methods/changes.json#");
+        $context->getValidator()->validate($request, "http://jmap.io/methods/changes.json#");
+
+        return $request;
     }
 }

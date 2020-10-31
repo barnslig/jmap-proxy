@@ -10,6 +10,8 @@ abstract class CopyMethod implements Method
 {
     public function handle(Invocation $request, RequestContext $context): Invocation
     {
-        return $context->getValidator()->validate($request, "http://jmap.io/methods/copy.json#");
+        $context->getValidator()->validate($request, "http://jmap.io/methods/copy.json#");
+
+        return $request;
     }
 }

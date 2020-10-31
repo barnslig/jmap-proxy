@@ -10,6 +10,8 @@ abstract class SetMethod implements Method
 {
     public function handle(Invocation $request, RequestContext $context): Invocation
     {
-        return $context->getValidator()->validate($request, "http://jmap.io/methods/set.json#");
+        $context->getValidator()->validate($request, "http://jmap.io/methods/set.json#");
+
+        return $request;
     }
 }

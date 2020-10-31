@@ -3,6 +3,7 @@
 namespace barnslig\JMAP\Mail;
 
 use barnslig\JMAP\Core\Capability;
+use Ds\Map;
 
 class MailCapability extends Capability
 {
@@ -14,8 +15,6 @@ class MailCapability extends Capability
      */
     public function __construct($options = [])
     {
-        parent::__construct();
-
         $this->options = array_merge([
             "maxMailboxesPerEmail" => null,
             "maxMailboxDepth" => null,
@@ -24,15 +23,18 @@ class MailCapability extends Capability
             "emailQuerySortOptions" => [],
             "mayCreateTopLevelMailbox" => true
         ], $options);
-
-        $this->addType(new MailCapability\MailboxType(), [
-            new MailCapability\MailboxType\MailboxGetMethod()
-        ]);
     }
 
     public function getCapabilities(): object
     {
         return (object)$this->options;
+    }
+
+    public function getMethods(): Map
+    {
+        return new Map([
+            "Mailbox/get" => MailCapability\MailboxType\MailboxGetMethod::class
+        ]);
     }
 
     public function getName(): string

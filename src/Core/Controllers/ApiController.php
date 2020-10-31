@@ -2,12 +2,11 @@
 
 namespace barnslig\JMAP\Core\Controllers;
 
+use BadMethodCallException;
 use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
 use barnslig\JMAP\Core\Exceptions\UnknownCapabilityException;
 use barnslig\JMAP\Core\Invocation;
 use barnslig\JMAP\Core\Request;
-use barnslig\JMAP\Core\RequestContext;
-use barnslig\JMAP\Core\RequestError;
 use barnslig\JMAP\Core\RequestErrors\LimitError;
 use barnslig\JMAP\Core\RequestErrors\NotJsonError;
 use barnslig\JMAP\Core\RequestErrors\NotRequestError;
@@ -47,7 +46,7 @@ class ApiController extends AbstractController
      *
      * @param Invocation $methodCall - Client-provided method call
      * @param Vector<Invocation> $methodResponses - Vector of already processed method calls
-     * @param Map<string, Method> $methods - Map of available methods within this request
+     * @param Map<string, class-string> $methods - Map of available methods within this request
      * @return Invocation The method response
      */
     public function resolveMethodCall(Invocation $methodCall, Vector $methodResponses, Map $methods): Invocation
@@ -56,8 +55,13 @@ class ApiController extends AbstractController
             // 1. Resolve references to previous method results (See RFC 8620 Section  3.7)
             $methodCall->resolveResultReferences($methodResponses);
 
-            // 2. Execute the corresponding method
+            // 2. Resolve the method
             $method = $methods->get($methodCall->getName());
+            if (!class_exists($method)) {
+                throw new BadMethodCallException("Could not resolve method " . $method);
+            }
+
+            // 3. Execute the method
             $methodCallable = new $method();
             $methodResponse = $methodCallable->handle($methodCall, $this->getContext());
         } catch (OutOfBoundsException $exception) {
@@ -104,6 +108,7 @@ class ApiController extends AbstractController
         // 1. Turn HTTP request into a JSON object
         // TODO Use PSR-7 middlewares for content negotiation and body parsing
         try {
+            /** @var mixed */
             $data = $this->parseJsonBody($request);
         } catch (\Exception $exception) {
             return new NotJsonError();

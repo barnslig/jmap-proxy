@@ -54,7 +54,7 @@ class Session implements JsonSerializable
      * Resolves a list of capabilities to a map of methods
      *
      * @param Vector<string> $usedCapabilities Vector of capabilities
-     * @return Map<string, Method> The keys are full method names (e.g. "Email/get")
+     * @return Map<string, class-string> The keys are full method names (e.g. "Email/get")
      * @throws UnknownCapabilityException When an unknown capability is used
      */
     public function resolveMethods(Vector $usedCapabilities): Map
