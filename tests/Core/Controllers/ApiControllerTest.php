@@ -83,7 +83,21 @@ final class ApiControllerTest extends TestCase
         $this->assertEqualsViaJson($json, $expected);
     }
 
-    public function testResolveMethodCallUnknownMethod()
+    public function testResolveMethodCallNotImplementedRaises()
+    {
+        $methodCall = new Invocation("Foo/bar", [], "#0");
+        $methodResponses = new Vector();
+        $methods = new Map([
+            "Foo/bar" => "notexisting"
+        ]);
+
+        $this->expectException(\BadMethodCallException::class);
+
+        // @phpstan-ignore-next-line
+        $response = $this->controller->resolveMethodCall($methodCall, $methodResponses, $methods);
+    }
+
+    public function testResolveMethodCallUnknownMethodError()
     {
         $methodCall = new Invocation("Foo/bar", [], "#0");
         $methodResponses = new Vector();
@@ -94,7 +108,7 @@ final class ApiControllerTest extends TestCase
         $this->assertEqualsViaJson($response, ["error", ["type" => "unknownMethod"], "#0"]);
     }
 
-    public function testResolveMethodCallInvocationException()
+    public function testResolveMethodCallInvocationError()
     {
         $methodCall = new Invocation("Foo/raising", [], "#0");
         $methodResponses = new Vector();
