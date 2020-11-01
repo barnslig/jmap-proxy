@@ -2,11 +2,8 @@
 
 namespace barnslig\JMAP\Core;
 
-use barnslig\JMAP\Core\RequestErrors\NotJsonError;
 use Ds\Map;
 use Ds\Vector;
-use OverflowException;
-use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * JMAP request

@@ -4,10 +4,8 @@ namespace barnslig\JMAP\Core;
 
 use Ds\Map;
 use Ds\Vector;
-use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
 use barnslig\JMAP\Core\Exceptions\UnknownCapabilityException;
 use JsonSerializable;
-use OutOfBoundsException;
 
 /**
  * Session consisting of capabilities, accounts and endpoints

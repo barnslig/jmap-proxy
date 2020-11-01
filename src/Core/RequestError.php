@@ -2,7 +2,6 @@
 
 namespace barnslig\JMAP\Core;
 
-use Ds\Map;
 use JsonSerializable;
 use Laminas\Diactoros\Response\JsonResponse;
 

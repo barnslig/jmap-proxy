@@ -32,7 +32,7 @@ class ApiController extends AbstractController
      * @throws \RuntimeException When the Content-Type is not application/json
      * @return object Request body as parsed JSON
      */
-    public function parseJsonBody(ServerRequestInterface $request): object
+    public static function parseJsonBody(ServerRequestInterface $request): object
     {
         if ($request->getHeaderLine("Content-Type") !== "application/json") {
             throw new \RuntimeException("Wrong Content-Type");
@@ -109,7 +109,7 @@ class ApiController extends AbstractController
         // TODO Use PSR-7 middlewares for content negotiation and body parsing
         try {
             /** @var mixed */
-            $data = $this->parseJsonBody($request);
+            $data = self::parseJsonBody($request);
         } catch (\Exception $exception) {
             return new NotJsonError();
         }
