@@ -15,14 +15,7 @@ class MailCapability extends Capability
      */
     public function __construct($options = [])
     {
-        $this->options = array_merge([
-            "maxMailboxesPerEmail" => null,
-            "maxMailboxDepth" => null,
-            "maxSizeMailboxName" => 100,
-            "maxSizeAttachmentsPerEmail" => 50000000,
-            "emailQuerySortOptions" => [],
-            "mayCreateTopLevelMailbox" => true
-        ], $options);
+        $this->options = $options;
     }
 
     public function getCapabilities(): object

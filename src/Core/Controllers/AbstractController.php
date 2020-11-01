@@ -15,7 +15,7 @@ abstract class AbstractController implements RequestHandlerInterface
     private $context;
 
     /**
-     * The global config
+     * The core config
      *
      * @var array<string, mixed>
      */
