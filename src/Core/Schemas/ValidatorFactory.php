@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Core\Schemas;
+namespace Barnslig\Jmap\Core\Schemas;
 
-use barnslig\JMAP\Core\Schemas\Validator;
+use Barnslig\Jmap\Core\Schemas\Validator;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Opis\JsonSchema\Validator as OpisValidator;
 use OpisErrorPresenter\Implementation\MessageFormatterFactory;

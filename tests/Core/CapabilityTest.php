@@ -1,9 +1,9 @@
 <?php
 
-namespace JP\Tests\JMAP;
+namespace Barnslig\Jmap\Tests;
 
 use Ds\Map;
-use barnslig\JMAP\Core\Capability;
+use Barnslig\Jmap\Core\Capability;
 use PHPUnit\Framework\TestCase;
 
 final class CapabilityTest extends TestCase

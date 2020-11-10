@@ -1,18 +1,18 @@
 <?php
 
-namespace barnslig\JMAP\Tests\Core\Controllers;
+namespace Barnslig\Jmap\Tests\Core\Controllers;
 
-use barnslig\JMAP\Core\Capabilities\CoreCapability;
-use barnslig\JMAP\Core\Capabilities\CoreCapability\CoreType\CoreEchoMethod;
-use barnslig\JMAP\Core\Controllers\ApiController;
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Request;
-use barnslig\JMAP\Core\RequestContext;
-use barnslig\JMAP\Core\Schemas\ValidatorInterface;
-use barnslig\JMAP\Core\Session;
-use barnslig\JMAP\Tests\Core\Stubs\FailingValidatorStub;
-use barnslig\JMAP\Tests\Core\Stubs\PassingValidatorStub;
-use barnslig\JMAP\Tests\Core\Stubs\RaisingMethodStub;
+use Barnslig\Jmap\Core\Capabilities\CoreCapability;
+use Barnslig\Jmap\Core\Capabilities\CoreCapability\CoreType\CoreEchoMethod;
+use Barnslig\Jmap\Core\Controllers\ApiController;
+use Barnslig\Jmap\Core\Invocation;
+use Barnslig\Jmap\Core\Request;
+use Barnslig\Jmap\Core\RequestContext;
+use Barnslig\Jmap\Core\Schemas\ValidatorInterface;
+use Barnslig\Jmap\Core\Session;
+use Barnslig\Jmap\Tests\Core\Stubs\FailingValidatorStub;
+use Barnslig\Jmap\Tests\Core\Stubs\PassingValidatorStub;
+use Barnslig\Jmap\Tests\Core\Stubs\RaisingMethodStub;
 use Ds\Map;
 use Ds\Vector;
 use PHPUnit\Framework\TestCase;

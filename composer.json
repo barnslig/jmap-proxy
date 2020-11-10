@@ -39,12 +39,12 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "barnslig\\JMAP\\Tests\\": "tests"
+      "Barnslig\\Jmap\\Tests\\": "tests"
     }
   },
   "autoload": {
     "psr-4": {
-      "barnslig\\JMAP\\": "src"
+      "Barnslig\\Jmap\\": "src"
     }
   },
   "scripts": {

@@ -1,18 +1,18 @@
 <?php
 
-namespace barnslig\JMAP\Core\Controllers;
+namespace Barnslig\Jmap\Core\Controllers;
 
 use BadMethodCallException;
-use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
-use barnslig\JMAP\Core\Exceptions\UnknownCapabilityException;
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Request;
-use barnslig\JMAP\Core\RequestErrors\LimitError;
-use barnslig\JMAP\Core\RequestErrors\NotJsonError;
-use barnslig\JMAP\Core\RequestErrors\NotRequestError;
-use barnslig\JMAP\Core\RequestErrors\UnknownCapabilityError;
-use barnslig\JMAP\Core\Response;
-use barnslig\JMAP\Core\Schemas\ValidationException;
+use Barnslig\Jmap\Core\Exceptions\MethodInvocationException;
+use Barnslig\Jmap\Core\Exceptions\UnknownCapabilityException;
+use Barnslig\Jmap\Core\Invocation;
+use Barnslig\Jmap\Core\Request;
+use Barnslig\Jmap\Core\RequestErrors\LimitError;
+use Barnslig\Jmap\Core\RequestErrors\NotJsonError;
+use Barnslig\Jmap\Core\RequestErrors\NotRequestError;
+use Barnslig\Jmap\Core\RequestErrors\UnknownCapabilityError;
+use Barnslig\Jmap\Core\Response;
+use Barnslig\Jmap\Core\Schemas\ValidationException;
 use Ds\Map;
 use Ds\Vector;
 use OutOfBoundsException;

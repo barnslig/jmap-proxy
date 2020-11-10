@@ -1,10 +1,10 @@
 <?php
 
-namespace barnslig\JMAP\Mail\MailCapability\MailboxType;
+namespace Barnslig\Jmap\Mail\MailCapability\MailboxType;
 
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Methods\GetMethod;
-use barnslig\JMAP\Core\RequestContext;
+use Barnslig\Jmap\Core\Invocation;
+use Barnslig\Jmap\Core\Methods\GetMethod;
+use Barnslig\Jmap\Core\RequestContext;
 
 class MailboxGetMethod extends GetMethod
 {

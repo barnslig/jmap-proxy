@@ -1,10 +1,10 @@
 <?php
 
-namespace barnslig\JMAP\Core\Controllers;
+namespace Barnslig\Jmap\Core\Controllers;
 
-use barnslig\JMAP\Core\Capabilities\CoreCapability;
-use barnslig\JMAP\Core\Controllers\AbstractController;
-use barnslig\JMAP\Core\RequestContext;
+use Barnslig\Jmap\Core\Capabilities\CoreCapability;
+use Barnslig\Jmap\Core\Controllers\AbstractController;
+use Barnslig\Jmap\Core\RequestContext;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 

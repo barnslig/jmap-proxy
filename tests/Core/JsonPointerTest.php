@@ -1,9 +1,9 @@
 <?php
 
-namespace JP\Tests\JMAP;
+namespace Barnslig\Jmap\Tests;
 
 use Ds\Vector;
-use barnslig\JMAP\Core\JsonPointer;
+use Barnslig\Jmap\Core\JsonPointer;
 use PHPUnit\Framework\TestCase;
 
 final class JsonPointerTest extends TestCase

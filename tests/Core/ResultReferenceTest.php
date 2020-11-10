@@ -1,11 +1,11 @@
 <?php
 
-namespace JP\Tests\JMAP;
+namespace Barnslig\Jmap\Tests;
 
 use Ds\Vector;
-use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\ResultReference;
+use Barnslig\Jmap\Core\Exceptions\MethodInvocationException;
+use Barnslig\Jmap\Core\Invocation;
+use Barnslig\Jmap\Core\ResultReference;
 use PHPUnit\Framework\TestCase;
 
 final class ResultReferenceTest extends TestCase

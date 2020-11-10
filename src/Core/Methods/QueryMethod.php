@@ -1,10 +1,10 @@
 <?php
 
-namespace barnslig\JMAP\Core\Methods;
+namespace Barnslig\Jmap\Core\Methods;
 
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Method;
-use barnslig\JMAP\Core\RequestContext;
+use Barnslig\Jmap\Core\Invocation;
+use Barnslig\Jmap\Core\Method;
+use Barnslig\Jmap\Core\RequestContext;
 
 abstract class QueryMethod implements Method
 {

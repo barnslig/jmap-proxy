@@ -1,6 +1,6 @@
 <?php
 
-namespace barnslig\JMAP\Core\Schemas;
+namespace Barnslig\Jmap\Core\Schemas;
 
 use Ds\Map;
 use Opis\JsonSchema\ISchemaLoader;

@@ -1,10 +1,10 @@
 <?php
 
-namespace JP\Tests\JMAP;
+namespace Barnslig\Jmap\Tests;
 
 use Ds\Vector;
-use barnslig\JMAP\Core\Response;
-use barnslig\JMAP\Core\Session;
+use Barnslig\Jmap\Core\Response;
+use Barnslig\Jmap\Core\Session;
 use PHPUnit\Framework\TestCase;
 
 final class ResponseTest extends TestCase

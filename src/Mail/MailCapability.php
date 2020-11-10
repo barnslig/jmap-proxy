@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Mail;
+namespace Barnslig\Jmap\Mail;
 
-use barnslig\JMAP\Core\Capability;
+use Barnslig\Jmap\Core\Capability;
 use Ds\Map;
 
 class MailCapability extends Capability

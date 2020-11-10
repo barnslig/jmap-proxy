@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Core;
+namespace Barnslig\Jmap\Core;
 
-use barnslig\JMAP\Core\Session;
+use Barnslig\Jmap\Core\Session;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 

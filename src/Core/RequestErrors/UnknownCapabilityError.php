@@ -1,9 +1,9 @@
 <?php
 
-namespace barnslig\JMAP\Core\RequestErrors;
+namespace Barnslig\Jmap\Core\RequestErrors;
 
-use barnslig\JMAP\Core\RequestError;
-use barnslig\JMAP\Core\Exceptions\UnknownCapabilityException;
+use Barnslig\Jmap\Core\RequestError;
+use Barnslig\Jmap\Core\Exceptions\UnknownCapabilityException;
 
 /**
  * Unknown Capability Error

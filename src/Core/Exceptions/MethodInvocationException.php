@@ -1,6 +1,6 @@
 <?php
 
-namespace barnslig\JMAP\Core\Exceptions;
+namespace Barnslig\Jmap\Core\Exceptions;
 
 use RuntimeException;
 

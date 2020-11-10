@@ -1,10 +1,10 @@
 <?php
 
-namespace barnslig\JMAP\Core;
+namespace Barnslig\Jmap\Core;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use barnslig\JMAP\Core\Capability;
+use Barnslig\Jmap\Core\Capability;
 
 class CapabilityFactory implements FactoryInterface
 {

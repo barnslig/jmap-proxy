@@ -1,6 +1,6 @@
 <?php
 
-namespace barnslig\JMAP\Core;
+namespace Barnslig\Jmap\Core;
 
 /**
  * Interface to implement a JMAP method

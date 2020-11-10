@@ -1,9 +1,9 @@
 <?php
 
-namespace barnslig\JMAP\Core;
+namespace Barnslig\Jmap\Core;
 
-use barnslig\JMAP\Core\Schemas\ValidatorInterface;
-use barnslig\JMAP\Core\Session;
+use Barnslig\Jmap\Core\Schemas\ValidatorInterface;
+use Barnslig\Jmap\Core\Session;
 
 /**
  * JMAP request context

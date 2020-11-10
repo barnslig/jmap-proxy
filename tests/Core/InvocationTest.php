@@ -1,10 +1,10 @@
 <?php
 
-namespace JP\Tests\JMAP;
+namespace Barnslig\Jmap\Tests;
 
 use Ds\Vector;
 use Ds\Map;
-use barnslig\JMAP\Core\Invocation;
+use Barnslig\Jmap\Core\Invocation;
 use PHPUnit\Framework\TestCase;
 
 final class InvocationTest extends TestCase

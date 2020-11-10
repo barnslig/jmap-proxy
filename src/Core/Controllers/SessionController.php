@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Core\Controllers;
+namespace Barnslig\Jmap\Core\Controllers;
 
-use barnslig\JMAP\Core\Session;
+use Barnslig\Jmap\Core\Session;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

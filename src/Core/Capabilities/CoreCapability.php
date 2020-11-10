@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Core\Capabilities;
+namespace Barnslig\Jmap\Core\Capabilities;
 
-use barnslig\JMAP\Core\Capability;
+use Barnslig\Jmap\Core\Capability;
 use Ds\Map;
 
 class CoreCapability extends Capability
