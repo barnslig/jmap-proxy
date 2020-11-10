@@ -4,13 +4,14 @@ namespace barnslig\JMAP\Core;
 
 use Ds\Vector;
 use JsonSerializable;
+use Laminas\Diactoros\Response\JsonResponse;
 
 /**
  * JMAP Response
  *
  * @see https://tools.ietf.org/html/rfc8620#section-3.4
  */
-class Response implements JsonSerializable
+class Response extends JsonResponse implements JsonSerializable
 {
     /** @var Session */
     private $session;
@@ -18,39 +19,22 @@ class Response implements JsonSerializable
     /**
      * Method responses Vector
      *
-     * @var Vector<Invocation> */
+     * @var Vector<Invocation>
+     */
     private $methodResponses;
 
     /**
      * Construct a new Response instance
      *
      * @param Session $session Current session, used to determine the `sessionState`
+     * @param Vector<Invocation> $methodResponses Method responses
      */
-    public function __construct(Session $session)
+    public function __construct(Session $session, Vector $methodResponses)
     {
         $this->session = $session;
-        $this->methodResponses = new Vector();
-    }
+        $this->methodResponses = $methodResponses;
 
-    /**
-     * Add a method response to the response
-     *
-     * @param Invocation $methodResponse
-     * @return void
-     */
-    public function addMethodResponse(Invocation $methodResponse)
-    {
-        $this->methodResponses->push($methodResponse);
-    }
-
-    /**
-     * Get all method responses
-     *
-     * @return Vector<Invocation> Vector of method responses
-     */
-    public function getMethodResponses(): Vector
-    {
-        return $this->methodResponses;
+        parent::__construct($this);
     }
 
     public function jsonSerialize()

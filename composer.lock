@@ -1,23 +1,55 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59dc2b6ea0870802fd663efb77988478",
+    "content-hash": "3f8dcd3eade6fd4d829d37deaab56e62",
     "packages": [
         {
-            "name": "laminas/laminas-diactoros",
-            "version": "2.2.2",
+            "name": "container-interop/container-interop",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laminas/laminas-diactoros.git",
-                "reference": "95178c4751d737cdf9ab0a9f70a42754ac860e7b"
+                "url": "https://github.com/container-interop/container-interop.git",
+                "reference": "79cbf1341c22ec75643d841642dd5d6acd83bdb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-diactoros/zipball/95178c4751d737cdf9ab0a9f70a42754ac860e7b",
-                "reference": "95178c4751d737cdf9ab0a9f70a42754ac860e7b",
+                "url": "https://api.github.com/repos/container-interop/container-interop/zipball/79cbf1341c22ec75643d841642dd5d6acd83bdb8",
+                "reference": "79cbf1341c22ec75643d841642dd5d6acd83bdb8",
+                "shasum": ""
+            },
+            "require": {
+                "psr/container": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Interop\\Container\\": "src/Interop/Container/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
+            "homepage": "https://github.com/container-interop/container-interop",
+            "abandoned": "psr/container",
+            "time": "2017-02-14T19:40:03+00:00"
+        },
+        {
+            "name": "laminas/laminas-diactoros",
+            "version": "2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-diactoros.git",
+                "reference": "36ef09b73e884135d2059cc498c938e90821bb57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-diactoros/zipball/36ef09b73e884135d2059cc498c938e90821bb57",
+                "reference": "36ef09b73e884135d2059cc498c938e90821bb57",
                 "shasum": ""
             },
             "require": {
@@ -34,23 +66,23 @@
                 "psr/http-message-implementation": "1.0"
             },
             "replace": {
-                "zendframework/zend-diactoros": "self.version"
+                "zendframework/zend-diactoros": "^2.2.1"
             },
             "require-dev": {
                 "ext-curl": "*",
                 "ext-dom": "*",
+                "ext-gd": "*",
                 "ext-libxml": "*",
                 "http-interop/http-factory-tests": "^0.5.0",
                 "laminas/laminas-coding-standard": "~1.0.0",
-                "php-http/psr7-integration-tests": "dev-master",
+                "php-http/psr7-integration-tests": "^1.0",
                 "phpunit/phpunit": "^7.5.18"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev",
-                    "dev-develop": "2.2.x-dev",
-                    "dev-release-1.8": "1.8.x-dev"
+                "laminas": {
+                    "config-provider": "Laminas\\Diactoros\\ConfigProvider",
+                    "module": "Laminas\\Diactoros"
                 }
             },
             "autoload": {
@@ -86,22 +118,23 @@
                 "http",
                 "laminas",
                 "psr",
+                "psr-17",
                 "psr-7"
             ],
-            "time": "2020-01-07T19:39:26+00:00"
+            "time": "2020-09-03T14:29:41+00:00"
         },
         {
             "name": "laminas/laminas-httphandlerrunner",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-httphandlerrunner.git",
-                "reference": "296f5ff35074dd981d1570a66b95596c81808087"
+                "reference": "e1a5dad040e0043135e8095ee27d1fbf6fb640e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-httphandlerrunner/zipball/296f5ff35074dd981d1570a66b95596c81808087",
-                "reference": "296f5ff35074dd981d1570a66b95596c81808087",
+                "url": "https://api.github.com/repos/laminas/laminas-httphandlerrunner/zipball/e1a5dad040e0043135e8095ee27d1fbf6fb640e1",
+                "reference": "e1a5dad040e0043135e8095ee27d1fbf6fb640e1",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +145,7 @@
                 "psr/http-server-handler": "^1.0"
             },
             "replace": {
-                "zendframework/zend-httphandlerrunner": "self.version"
+                "zendframework/zend-httphandlerrunner": "^1.1.0"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
@@ -122,8 +155,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev",
-                    "dev-develop": "1.2.x-dev"
+                    "dev-master": "1.2.x-dev",
+                    "dev-develop": "1.3.x-dev"
                 },
                 "laminas": {
                     "config-provider": "Laminas\\HttpHandlerRunner\\ConfigProvider"
@@ -147,35 +180,153 @@
                 "psr-15",
                 "psr-7"
             ],
-            "time": "2019-12-31T17:06:16+00:00"
+            "time": "2020-06-03T15:52:17+00:00"
         },
         {
-            "name": "laminas/laminas-zendframework-bridge",
-            "version": "1.0.1",
+            "name": "laminas/laminas-servicemanager",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
-                "reference": "0fb9675b84a1666ab45182b6c5b29956921e818d"
+                "url": "https://github.com/laminas/laminas-servicemanager.git",
+                "reference": "0d4c8628a71fae9f7bd0b1b74b76382e5e9a04b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/0fb9675b84a1666ab45182b6c5b29956921e818d",
-                "reference": "0fb9675b84a1666ab45182b6c5b29956921e818d",
+                "url": "https://api.github.com/repos/laminas/laminas-servicemanager/zipball/0d4c8628a71fae9f7bd0b1b74b76382e5e9a04b1",
+                "reference": "0d4c8628a71fae9f7bd0b1b74b76382e5e9a04b1",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "container-interop/container-interop": "^1.2",
+                "laminas/laminas-stdlib": "^3.2.1",
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "php": "^5.6 || ^7.0",
+                "psr/container": "^1.0"
+            },
+            "provide": {
+                "container-interop/container-interop-implementation": "^1.2",
+                "psr/container-implementation": "^1.0"
+            },
+            "replace": {
+                "zendframework/zend-servicemanager": "^3.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.1",
-                "squizlabs/php_codesniffer": "^3.5"
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "mikey179/vfsstream": "^1.6.5",
+                "ocramius/proxy-manager": "^1.0 || ^2.0",
+                "phpbench/phpbench": "^0.13.0",
+                "phpunit/phpunit": "^5.7.25 || ^6.4.4"
+            },
+            "suggest": {
+                "laminas/laminas-stdlib": "laminas-stdlib ^2.5 if you wish to use the MergeReplaceKey or MergeRemoveKey features in Config instances",
+                "ocramius/proxy-manager": "ProxyManager 1.* to handle lazy initialization of services"
+            },
+            "bin": [
+                "bin/generate-deps-for-config-factory",
+                "bin/generate-factory-for-class"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev",
+                    "dev-develop": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\ServiceManager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Factory-Driven Dependency Injection Container",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "PSR-11",
+                "dependency-injection",
+                "di",
+                "dic",
+                "laminas",
+                "service-manager",
+                "servicemanager"
+            ],
+            "time": "2020-05-11T14:43:22+00:00"
+        },
+        {
+            "name": "laminas/laminas-stdlib",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-stdlib.git",
+                "reference": "b9d84eaa39fde733356ea948cdef36c631f202b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/b9d84eaa39fde733356ea948cdef36c631f202b6",
+                "reference": "b9d84eaa39fde733356ea948cdef36c631f202b6",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "php": "^7.3 || ^8.0"
+            },
+            "replace": {
+                "zendframework/zend-stdlib": "^3.2.1"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "phpbench/phpbench": "^0.17.1",
+                "phpunit/phpunit": "^9.3.7"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev",
-                    "dev-develop": "1.1.x-dev"
-                },
+                    "dev-master": "3.3.x-dev",
+                    "dev-develop": "3.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Stdlib\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "SPL extensions, array utilities, error handlers, and more",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "laminas",
+                "stdlib"
+            ],
+            "time": "2020-08-25T09:08:16+00:00"
+        },
+        {
+            "name": "laminas/laminas-zendframework-bridge",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
+                "reference": "6ede70583e101030bcace4dcddd648f760ddf642"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/6ede70583e101030bcace4dcddd648f760ddf642",
+                "reference": "6ede70583e101030bcace4dcddd648f760ddf642",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.1 || ^9.3",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
                 "laminas": {
                     "module": "Laminas\\ZendFrameworkBridge"
                 }
@@ -199,20 +350,20 @@
                 "laminas",
                 "zf"
             ],
-            "time": "2020-01-07T22:58:31+00:00"
+            "time": "2020-09-14T14:23:00+00:00"
         },
         {
             "name": "league/route",
-            "version": "4.3.1",
+            "version": "4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/route.git",
-                "reference": "e9ca722dc52d6652057e6fc448572a765b294f24"
+                "reference": "5ccce47a0120c9036d02a805237b942210993320"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/route/zipball/e9ca722dc52d6652057e6fc448572a765b294f24",
-                "reference": "e9ca722dc52d6652057e6fc448572a765b294f24",
+                "url": "https://api.github.com/repos/thephpleague/route/zipball/5ccce47a0120c9036d02a805237b942210993320",
+                "reference": "5ccce47a0120c9036d02a805237b942210993320",
                 "shasum": ""
             },
             "require": {
@@ -271,20 +422,20 @@
                 "route",
                 "router"
             ],
-            "time": "2019-07-01T19:36:07+00:00"
+            "time": "2020-05-18T07:34:43+00:00"
         },
         {
             "name": "m1x0n/opis-json-schema-error-presenter",
-            "version": "v0.5.1",
+            "version": "v0.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/m1x0n/opis-error-presenter.git",
-                "reference": "2fd007b8d0d49ac54320be27da8c214a25c9cb77"
+                "reference": "03889c2ec57a01f9e0af3b2ecf65137eca537a33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/m1x0n/opis-error-presenter/zipball/2fd007b8d0d49ac54320be27da8c214a25c9cb77",
-                "reference": "2fd007b8d0d49ac54320be27da8c214a25c9cb77",
+                "url": "https://api.github.com/repos/m1x0n/opis-error-presenter/zipball/03889c2ec57a01f9e0af3b2ecf65137eca537a33",
+                "reference": "03889c2ec57a01f9e0af3b2ecf65137eca537a33",
                 "shasum": ""
             },
             "require": {
@@ -316,7 +467,7 @@
                 }
             ],
             "description": "JSON schema error presenter for opis library",
-            "time": "2019-10-21T18:36:38+00:00"
+            "time": "2020-09-03T20:05:50+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -366,16 +517,16 @@
         },
         {
             "name": "opis/json-schema",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/json-schema.git",
-                "reference": "19868514d5e4c27553b21c7f0cf6388734c67d18"
+                "reference": "1bcb3582881d0692d002537a4472964280f71313"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/json-schema/zipball/19868514d5e4c27553b21c7f0cf6388734c67d18",
-                "reference": "19868514d5e4c27553b21c7f0cf6388734c67d18",
+                "url": "https://api.github.com/repos/opis/json-schema/zipball/1bcb3582881d0692d002537a4472964280f71313",
+                "reference": "1bcb3582881d0692d002537a4472964280f71313",
                 "shasum": ""
             },
             "require": {
@@ -387,7 +538,7 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "opis/string": "^1.4",
-                "phpunit/phpunit": "^6.5"
+                "phpunit/phpunit": "^6.5 || ^7.0"
             },
             "suggest": {
                 "opis/string": "A standalone library for manipulating multibyte strings"
@@ -409,12 +560,12 @@
             ],
             "authors": [
                 {
-                    "name": "Marius Sarca",
-                    "email": "marius.sarca@gmail.com"
-                },
-                {
                     "name": "Sorin Sarca",
                     "email": "sarca_sorin@hotmail.com"
+                },
+                {
+                    "name": "Marius Sarca",
+                    "email": "marius.sarca@gmail.com"
                 }
             ],
             "description": "Json Schema Validator",
@@ -425,16 +576,14 @@
                 "validation",
                 "validator"
             ],
-            "time": "2019-05-22T05:16:45+00:00"
+            "time": "2020-06-07T20:56:25+00:00"
         },
         {
             "name": "pear-pear.horde.org/Horde_Cache",
             "version": "2.5.5",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Cache-2.5.5.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Cache-2.5.5.tgz"
             },
             "require": {
                 "ext-hash": "*",
@@ -465,9 +614,7 @@
             "version": "1.1.1",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Compress_Fast-1.1.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Compress_Fast-1.1.1.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_exception": "<3.0.0.0",
@@ -495,9 +642,7 @@
             "version": "1.1.3",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Crypt_Blowfish-1.1.3.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Crypt_Blowfish-1.1.3.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_exception": "<3.0.0.0",
@@ -526,9 +671,7 @@
             "version": "2.0.8",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Exception-2.0.8.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Exception-2.0.8.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_translation": "<3.0.0.0",
@@ -556,9 +699,7 @@
             "version": "1.1.2",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Idna-1.1.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Idna-1.1.2.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_exception": "<3.0.0.0",
@@ -587,9 +728,7 @@
             "version": "2.30.1",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Imap_Client-2.30.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Imap_Client-2.30.1.tgz"
             },
             "require": {
                 "ext-hash": "*",
@@ -627,9 +766,7 @@
             "version": "1.2.5",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_ListHeaders-1.2.5.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_ListHeaders-1.2.5.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_mail": "<3.0.0.0",
@@ -659,9 +796,7 @@
             "version": "2.6.5",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Mail-2.6.5.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Mail-2.6.5.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_exception": "<3.0.0.0",
@@ -691,12 +826,10 @@
         },
         {
             "name": "pear-pear.horde.org/Horde_Mime",
-            "version": "2.11.0",
+            "version": "2.11.1",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Mime-2.11.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Mime-2.11.1.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_exception": "<3.0.0.0",
@@ -711,7 +844,7 @@
                 "php": "<8.0.0.0"
             },
             "replace": {
-                "pear-horde/horde_mime": "== 2.11.0.0"
+                "pear-horde/horde_mime": "== 2.11.1.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -725,16 +858,14 @@
             "license": [
                 "LGPL-2.1"
             ],
-            "description": "Provides methods for dealing with Multipurpose Internet Mail Extensions (MIME) features (RFC 2045/2046/2047)."
+            "description": "A library that provides methods for dealing with Multipurpose Internet Mail Extensions (MIME) features (RFC 2045/2046/2047)."
         },
         {
             "name": "pear-pear.horde.org/Horde_Secret",
             "version": "2.0.6",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Secret-2.0.6.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Secret-2.0.6.tgz"
             },
             "require": {
                 "ext-hash": "*",
@@ -762,19 +893,17 @@
         },
         {
             "name": "pear-pear.horde.org/Horde_Socket_Client",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Socket_Client-2.1.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Socket_Client-2.1.3.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_exception": "<3.0.0.0",
                 "php": "<8.0.0.0"
             },
             "replace": {
-                "pear-horde/horde_socket_client": "== 2.1.2.0"
+                "pear-horde/horde_socket_client": "== 2.1.3.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -788,16 +917,14 @@
             "license": [
                 "LGPL-2.1"
             ],
-            "description": "Provides abstract class for use in creating PHP network socket clients."
+            "description": "A library that provides an abstract PHP network socket client."
         },
         {
             "name": "pear-pear.horde.org/Horde_Stream",
             "version": "1.6.3",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Stream-1.6.3.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Stream-1.6.3.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_exception": "<3.0.0.0",
@@ -825,9 +952,7 @@
             "version": "2.0.4",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Stream_Filter-2.0.4.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Stream_Filter-2.0.4.tgz"
             },
             "require": {
                 "php": "<8.0.0.0"
@@ -854,9 +979,7 @@
             "version": "2.1.4",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Stream_Wrapper-2.1.4.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Stream_Wrapper-2.1.4.tgz"
             },
             "require": {
                 "php": "<8.0.0.0"
@@ -883,9 +1006,7 @@
             "version": "2.2.0",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Support-2.2.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Support-2.2.0.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_exception": "<3.0.0.0",
@@ -915,9 +1036,7 @@
             "version": "2.0.4",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Text_Flowed-2.0.4.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Text_Flowed-2.0.4.tgz"
             },
             "require": {
                 "pear-pear.horde.org/horde_util": "<3.0.0.0",
@@ -945,9 +1064,7 @@
             "version": "2.2.2",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Translation-2.2.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Translation-2.2.2.tgz"
             },
             "require": {
                 "php": "<8.0.0.0"
@@ -974,9 +1091,7 @@
             "version": "2.5.9",
             "dist": {
                 "type": "file",
-                "url": "https://pear.horde.org/get/Horde_Util-2.5.9.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://pear.horde.org/get/Horde_Util-2.5.9.tgz"
             },
             "require": {
                 "ext-dom": "*",
@@ -1001,23 +1116,27 @@
         },
         {
             "name": "php-ds/php-ds",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-ds/polyfill.git",
-                "reference": "27bed3897f9c801604f5bdcb65b71eb61ec80099"
+                "reference": "b98396862fb8a13cbdbbaf4d18be28ee5c01ed3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/27bed3897f9c801604f5bdcb65b71eb61ec80099",
-                "reference": "27bed3897f9c801604f5bdcb65b71eb61ec80099",
+                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/b98396862fb8a13cbdbbaf4d18be28ee5c01ed3c",
+                "reference": "b98396862fb8a13cbdbbaf4d18be28ee5c01ed3c",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": ">=7.0.0"
             },
+            "provide": {
+                "ext-ds": "1.3.0"
+            },
             "require-dev": {
-                "php-ds/tests": "^1.2"
+                "php-ds/tests": "^1.3"
             },
             "suggest": {
                 "ext-ds": "to improve performance and reduce memory usage"
@@ -1044,7 +1163,7 @@
                 "php",
                 "polyfill"
             ],
-            "time": "2017-08-03T02:03:34+00:00"
+            "time": "2020-10-14T04:23:31+00:00"
         },
         {
             "name": "psr/container",
@@ -1307,20 +1426,20 @@
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "ae466f726242e637cebdd526a7d991b9433bacf1"
+                "reference": "f350df0268e904597e3bd9c4685c53e0e333feea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/ae466f726242e637cebdd526a7d991b9433bacf1",
-                "reference": "ae466f726242e637cebdd526a7d991b9433bacf1",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f350df0268e904597e3bd9c4685c53e0e333feea",
+                "reference": "f350df0268e904597e3bd9c4685c53e0e333feea",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^6.0",
@@ -1359,24 +1478,93 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2019-10-21T16:45:58+00:00"
+            "time": "2020-05-29T17:27:14+00:00"
         },
         {
-            "name": "myclabs/deep-copy",
-            "version": "1.9.4",
+            "name": "jangregor/phpstan-prophecy",
+            "version": "0.8.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "579bb7356d91f9456ccd505f24ca8b667966a0a7"
+                "url": "https://github.com/Jan0707/phpstan-prophecy.git",
+                "reference": "f01ca476840c370bbf9c224aed25fca60eecca9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/579bb7356d91f9456ccd505f24ca8b667966a0a7",
-                "reference": "579bb7356d91f9456ccd505f24ca8b667966a0a7",
+                "url": "https://api.github.com/repos/Jan0707/phpstan-prophecy/zipball/f01ca476840c370bbf9c224aed25fca60eecca9d",
+                "reference": "f01ca476840c370bbf9c224aed25fca60eecca9d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": "^7.1 || ^8.0",
+                "phpstan/phpstan": "^0.12.6"
+            },
+            "conflict": {
+                "phpspec/prophecy": "<1.7.0,>=2.0.0",
+                "phpunit/phpunit": "<6.0.0,>=10.0.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.1.1",
+                "ergebnis/license": "^1.0.0",
+                "ergebnis/php-cs-fixer-config": "~2.2.0",
+                "phpspec/prophecy": "^1.7.0",
+                "phpunit/phpunit": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JanGregor\\Prophecy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Gregor Emge-Triebel",
+                    "email": "jan@jangregor.me"
+                }
+            ],
+            "description": "Provides a phpstan/phpstan extension for phpspec/prophecy",
+            "support": {
+                "issues": "https://github.com/Jan0707/phpstan-prophecy/issues",
+                "source": "https://github.com/Jan0707/phpstan-prophecy/tree/0.8.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/localheinz",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/localheinz",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-24T15:04:14+00:00"
+        },
+        {
+            "name": "myclabs/deep-copy",
+            "version": "1.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/DeepCopy.git",
+                "reference": "969b211f9a51aa1f6c01d1d2aef56d3bd91598e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/969b211f9a51aa1f6c01d1d2aef56d3bd91598e5",
+                "reference": "969b211f9a51aa1f6c01d1d2aef56d3bd91598e5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
             },
             "replace": {
                 "myclabs/deep-copy": "self.version"
@@ -1407,7 +1595,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2019-12-15T19:12:40+00:00"
+            "time": "2020-06-29T13:22:24+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -1513,28 +1701,25 @@
         },
         {
             "name": "phpdocumentor/reflection-common",
-            "version": "2.0.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a"
+                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/63a995caa1ca9e5590304cd845c15ad6d482a62a",
-                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/1d01c49d4ed62f25aa84a747ad35d5a16924662b",
+                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~6"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-2.x": "2.x-dev"
                 }
             },
             "autoload": {
@@ -1561,45 +1746,41 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2018-08-07T13:53:10+00:00"
+            "time": "2020-06-27T09:03:43+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.3.4",
+            "version": "5.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "da3fd972d6bafd628114f7e7e036f45944b62e9c"
+                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/da3fd972d6bafd628114f7e7e036f45944b62e9c",
-                "reference": "da3fd972d6bafd628114f7e7e036f45944b62e9c",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/069a785b2141f5bcf49f3e353548dc1cce6df556",
+                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0",
-                "phpdocumentor/reflection-common": "^1.0.0 || ^2.0.0",
-                "phpdocumentor/type-resolver": "~0.4 || ^1.0.0",
-                "webmozart/assert": "^1.0"
+                "ext-filter": "*",
+                "php": "^7.2 || ^8.0",
+                "phpdocumentor/reflection-common": "^2.2",
+                "phpdocumentor/type-resolver": "^1.3",
+                "webmozart/assert": "^1.9.1"
             },
             "require-dev": {
-                "doctrine/instantiator": "^1.0.5",
-                "mockery/mockery": "^1.0",
-                "phpdocumentor/type-resolver": "0.4.*",
-                "phpunit/phpunit": "^6.4"
+                "mockery/mockery": "~1.3.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.x-dev"
+                    "dev-master": "5.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "phpDocumentor\\Reflection\\": [
-                        "src/"
-                    ]
+                    "phpDocumentor\\Reflection\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1610,38 +1791,40 @@
                 {
                     "name": "Mike van Riel",
                     "email": "me@mikevanriel.com"
+                },
+                {
+                    "name": "Jaap van Otterdijk",
+                    "email": "account@ijaap.nl"
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2019-12-28T18:55:12+00:00"
+            "time": "2020-09-03T19:13:55+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.0.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "2e32a6d48972b2c1976ed5d8967145b6cec4a4a9"
+                "reference": "6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/2e32a6d48972b2c1976ed5d8967145b6cec4a4a9",
-                "reference": "2e32a6d48972b2c1976ed5d8967145b6cec4a4a9",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0",
+                "reference": "6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1",
+                "php": "^7.2 || ^8.0",
                 "phpdocumentor/reflection-common": "^2.0"
             },
             "require-dev": {
-                "ext-tokenizer": "^7.1",
-                "mockery/mockery": "~1",
-                "phpunit/phpunit": "^7.0"
+                "ext-tokenizer": "*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-1.x": "1.x-dev"
                 }
             },
             "autoload": {
@@ -1660,37 +1843,37 @@
                 }
             ],
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
-            "time": "2019-08-22T18:11:29+00:00"
+            "time": "2020-09-17T18:55:26+00:00"
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.10.1",
+            "version": "1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "cbe1df668b3fe136bcc909126a0f529a78d4cbbc"
+                "reference": "8ce87516be71aae9b956f81906aaf0338e0d8a2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/cbe1df668b3fe136bcc909126a0f529a78d4cbbc",
-                "reference": "cbe1df668b3fe136bcc909126a0f529a78d4cbbc",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/8ce87516be71aae9b956f81906aaf0338e0d8a2d",
+                "reference": "8ce87516be71aae9b956f81906aaf0338e0d8a2d",
                 "shasum": ""
             },
             "require": {
-                "doctrine/instantiator": "^1.0.2",
-                "php": "^5.3|^7.0",
-                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0|^5.0",
-                "sebastian/comparator": "^1.2.3|^2.0|^3.0",
-                "sebastian/recursion-context": "^1.0|^2.0|^3.0"
+                "doctrine/instantiator": "^1.2",
+                "php": "^7.2 || ~8.0, <8.1",
+                "phpdocumentor/reflection-docblock": "^5.2",
+                "sebastian/comparator": "^3.0 || ^4.0",
+                "sebastian/recursion-context": "^3.0 || ^4.0"
             },
             "require-dev": {
-                "phpspec/phpspec": "^2.5 || ^3.2",
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5 || ^7.1"
+                "phpspec/phpspec": "^6.0",
+                "phpunit/phpunit": "^8.0 || ^9.0 <9.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.10.x-dev"
+                    "dev-master": "1.11.x-dev"
                 }
             },
             "autoload": {
@@ -1723,24 +1906,24 @@
                 "spy",
                 "stub"
             ],
-            "time": "2019-12-22T21:05:45+00:00"
+            "time": "2020-09-29T09:10:42+00:00"
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.26",
+            "version": "0.12.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "f108dabe757a584fafc3baabc0fabf4d45e040f1"
+                "reference": "e96dd5e7ae9aefed663bc7e285ad96792b67eadc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f108dabe757a584fafc3baabc0fabf4d45e040f1",
-                "reference": "f108dabe757a584fafc3baabc0fabf4d45e040f1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e96dd5e7ae9aefed663bc7e285ad96792b67eadc",
+                "reference": "e96dd5e7ae9aefed663bc7e285ad96792b67eadc",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": "^7.1|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -1765,7 +1948,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2020-06-07T22:01:45+00:00"
+            "time": "2020-10-25T07:23:44+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2017,20 +2200,21 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.2",
+            "version": "8.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "018b6ac3c8ab20916db85fa91bf6465acb64d1e0"
+                "reference": "34c18baa6a44f1d1fbf0338907139e9dce95b997"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/018b6ac3c8ab20916db85fa91bf6465acb64d1e0",
-                "reference": "018b6ac3c8ab20916db85fa91bf6465acb64d1e0",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/34c18baa6a44f1d1fbf0338907139e9dce95b997",
+                "reference": "34c18baa6a44f1d1fbf0338907139e9dce95b997",
                 "shasum": ""
             },
             "require": {
@@ -2100,7 +2284,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2020-01-08T08:49:49+00:00"
+            "time": "2020-06-22T07:06:58+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -2719,16 +2903,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.3",
+            "version": "3.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "557a1fc7ac702c66b0bbfe16ab3d55839ef724cb"
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/557a1fc7ac702c66b0bbfe16ab3d55839ef724cb",
-                "reference": "557a1fc7ac702c66b0bbfe16ab3d55839ef724cb",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
                 "shasum": ""
             },
             "require": {
@@ -2766,24 +2950,24 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-12-04T04:46:47+00:00"
+            "time": "2020-10-23T02:01:07+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.13.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3"
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f4ba089a5b6366e453971d3aad5fe8e897b37f41",
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
                 "ext-ctype": "For best performance"
@@ -2791,7 +2975,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-main": "1.20-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
                 }
             },
             "autoload": {
@@ -2824,27 +3012,27 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-11-27T13:56:44+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.1.3",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9"
+                "reference": "75a63c33a8577608444246075ea0af0d052e452a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
-                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/75a63c33a8577608444246075ea0af0d052e452a",
+                "reference": "75a63c33a8577608444246075ea0af0d052e452a",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
-                "php": "^7.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "autoload": {
@@ -2864,28 +3052,29 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
-            "time": "2019-06-13T22:48:21+00:00"
+            "time": "2020-07-12T23:59:07+00:00"
         },
         {
             "name": "webmozart/assert",
-            "version": "1.6.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925"
+                "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925",
-                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0",
+                "php": "^5.3.3 || ^7.0 || ^8.0",
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
-                "vimeo/psalm": "<3.6.0"
+                "phpstan/phpstan": "<0.12.20",
+                "vimeo/psalm": "<3.9.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8.36 || ^7.5.13"
@@ -2912,7 +3101,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2019-11-24T13:36:37+00:00"
+            "time": "2020-07-08T17:02:28+00:00"
         }
     ],
     "aliases": [],
@@ -2927,5 +3116,6 @@
         "php": ">=7.3",
         "ext-mbstring": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

@@ -1,8 +1,13 @@
+includes:
+    - vendor/jangregor/phpstan-prophecy/extension.neon
+
 parameters:
     level: 8
     paths:
         - src
         - tests
     ignoreErrors:
-        - message: '#Method .* has no return typehint specified.#'
+        - message: '#Method .* has no return typehint specified\.#'
           path: tests
+        - message: '#Method .*Factory::__invoke\(\) has parameter \$options with no value type specified in iterable type array\.#'
+          path: src/**/*Factory.php

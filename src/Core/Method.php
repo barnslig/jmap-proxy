@@ -12,18 +12,11 @@ namespace barnslig\JMAP\Core;
 interface Method
 {
     /**
-     * Get the method name
-     *
-     * @return string Method name, e.g. echo
-     */
-    public function getName(): string;
-
-    /**
      * Invoke the method
      *
      * @param Invocation $request Request invocation
-     * @param Session $session JMAP session instance
+     * @param RequestContext $context JMAP request context
      * @return Invocation Response invocation
      */
-    public function handle(Invocation $request, Session $session): Invocation;
+    public function handle(Invocation $request, RequestContext $context): Invocation;
 }

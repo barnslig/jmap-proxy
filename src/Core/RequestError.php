@@ -2,18 +2,17 @@
 
 namespace barnslig\JMAP\Core;
 
-use Ds\Map;
 use JsonSerializable;
 use Laminas\Diactoros\Response\JsonResponse;
-use Psr\Http\Message\ResponseInterface;
 
 /**
- * Request-Level Error that returns an object according to RFC 7807
+ * Request-Level Error that returns a RFC 7807 object as an PSR-7 compatible HTTP response according to RFC 7807
  *
  * @see https://tools.ietf.org/html/rfc8620#section-3.6.1
  * @see https://tools.ietf.org/html/rfc7807
+ * @see https://www.php-fig.org/psr/psr-7/#33-psrhttpmessageresponseinterface
  */
-class RequestError implements JsonSerializable
+class RequestError extends JsonResponse implements JsonSerializable
 {
     /** @var string */
     private $type;
@@ -36,16 +35,8 @@ class RequestError implements JsonSerializable
         $this->type = $type;
         $this->status = $status;
         $this->error = $error;
-    }
 
-    /**
-     * Turn the Request-Error into a PSR-7 response
-     *
-     * @return JsonResponse
-     */
-    public function asResponse(): ResponseInterface
-    {
-        return new JsonResponse($this, $this->status, [
+        parent::__construct($this, $this->status, [
             'Content-Type' => 'application/problem+json'
         ]);
     }

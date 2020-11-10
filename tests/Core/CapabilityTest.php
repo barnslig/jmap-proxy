@@ -4,40 +4,23 @@ namespace JP\Tests\JMAP;
 
 use Ds\Map;
 use barnslig\JMAP\Core\Capability;
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Method;
-use barnslig\JMAP\Core\Session;
-use barnslig\JMAP\Core\Type;
 use PHPUnit\Framework\TestCase;
 
 final class CapabilityTest extends TestCase
 {
-    public function testGetMethods()
+    public function testSerializesGetCapabilitiesToJson()
     {
-        $method = new class implements Method {
-            public function getName(): string
-            {
-                return "echo";
-            }
-
-            public function handle(Invocation $request, Session $session): Invocation
-            {
-                return $request;
-            }
-        };
-
-        $type = new class implements Type {
-            public function getName(): string
-            {
-                return "Test";
-            }
-        };
-
-        $capability = new class extends Capability
-        {
+        $capability = new class extends Capability {
             public function getCapabilities(): object
             {
-                return (object) [];
+                return (object)[
+                    "foo" => "bar"
+                ];
+            }
+
+            public function getMethods(): Map
+            {
+                return new Map();
             }
 
             public function getName(): string
@@ -45,10 +28,7 @@ final class CapabilityTest extends TestCase
                 return "urn:ietf:params:jmap:test";
             }
         };
-        $capability->addType($type, [$method]);
 
-        $this->assertEquals($capability->getMethods()->toArray(), [
-            "Test/echo" => $method
-        ]);
+        $this->assertEquals(json_encode($capability), json_encode(["foo" => "bar"]));
     }
 }

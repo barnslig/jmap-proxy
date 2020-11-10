@@ -118,7 +118,7 @@ class Invocation implements JsonSerializable
                 );
             }
 
-            $ref = new ResultReference($value);
+            $ref = new ResultReference($value->resultOf, $value->name, $value->path);
             $this->arguments->remove("#" . $key);
             $this->arguments->put($key, $ref->resolve($responses));
         }

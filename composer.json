@@ -17,19 +17,29 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "3.*",
     "phpunit/phpunit": "^8",
-    "phpstan/phpstan": "^0.12.26"
+    "phpstan/phpstan": "^0.12.26",
+    "jangregor/phpstan-prophecy": "^0.8.1"
   },
   "require": {
     "php": ">=7.3",
     "ext-mbstring": "*",
-    "pear-pear.horde.org/Horde_Imap_Client": "^2.30.1@stable",
-    "pear-pear.horde.org/Horde_Cache": "^2.5.5@stable",
+    "pear-pear.horde.org/horde_imap_client": "^2.30.1@stable",
+    "pear-pear.horde.org/horde_cache": "^2.5.5@stable",
     "league/route": "^4.3",
     "laminas/laminas-diactoros": "^2.2",
     "laminas/laminas-httphandlerrunner": "^1.1",
     "php-ds/php-ds": "^1.2",
     "opis/json-schema": "^1.0",
-    "m1x0n/opis-json-schema-error-presenter": "^0.5.1"
+    "m1x0n/opis-json-schema-error-presenter": "^0.5.1",
+    "laminas/laminas-servicemanager": "^3.4",
+    "psr/http-message": "^1.0",
+    "psr/http-server-handler": "^1.0",
+    "psr/http-factory": "^1.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "barnslig\\JMAP\\Tests\\": "tests"
+    }
   },
   "autoload": {
     "psr-4": {

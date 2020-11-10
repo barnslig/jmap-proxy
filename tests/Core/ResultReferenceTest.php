@@ -10,35 +10,20 @@ use PHPUnit\Framework\TestCase;
 
 final class ResultReferenceTest extends TestCase
 {
-    /**
-     * Create a reference
-     *
-     * @return object Reference
-     */
-    protected function createReference(): object
-    {
-        return (object)[
-            "resultOf" => "#0",
-            "name" => "Foo/bar",
-            "path" => "/bar/baz"
-        ];
-    }
+    /** @var ResultReference */
+    protected $rr;
 
-    public function testValidates()
+    protected function setUp(): void
     {
-        $this->expectException(MethodInvocationException::class);
-        $reference = (object)[];
-        new ResultReference($reference);
+        $this->rr = new ResultReference("#0", "Foo/bar", "/bar/baz");
     }
 
     public function testRaiseUnknownInvocation()
     {
         $responses = new Vector();
-        $reference = $this->createReference();
 
-        $rr = new ResultReference($reference);
         $this->expectException(MethodInvocationException::class);
-        $rr->resolve($responses);
+        $this->rr->resolve($responses);
     }
 
     public function testRaisesUnknownPath()
@@ -50,11 +35,9 @@ final class ResultReferenceTest extends TestCase
                 ]
             ], "#0")
         ]);
-        $reference = $this->createReference();
 
-        $rr = new ResultReference($reference);
         $this->expectException(MethodInvocationException::class);
-        $rr->resolve($responses);
+        $this->rr->resolve($responses);
     }
 
     public function testResolves()
@@ -66,9 +49,7 @@ final class ResultReferenceTest extends TestCase
                 ]
             ], "#0")
         ]);
-        $reference = $this->createReference();
 
-        $rr = new ResultReference($reference);
-        $this->assertEquals($rr->resolve($responses), "bla");
+        $this->assertEquals($this->rr->resolve($responses), "bla");
     }
 }

@@ -4,11 +4,9 @@ namespace barnslig\JMAP\Core;
 
 use Ds\Map;
 use Ds\Vector;
-use barnslig\JMAP\Core\Schemas\Validator;
-use OverflowException;
 
 /**
- * JMAP request based on a JSON object that needs to be validated
+ * JMAP request
  *
  * @see https://tools.ietf.org/html/rfc8620#section-3.3
  */
@@ -38,32 +36,26 @@ class Request
     /**
      * Construct a new Request instance
      *
-     * During construction the JSON request body gets validated against a
-     * JSON schema and method calls are mapped into Invocation instances.
-     *
-     * @param mixed $data Parsed JSON request body
-     * @param int $maxCallsInRequest Maximum calls a request may have
-     * @throws OverflowException When maxCallsInRequest gets exceeded
+     * @param array<string> $using Set of capabilities the client wishes to use
+     * @param array<array> $methodCalls Method calls to be processed
+     * @param array<string, string> $createdIds Optional. A map of a (client-specified) creation id to the id the
+     *                                          server assigned when a record was successfully created
      */
-    public function __construct($data, int $maxCallsInRequest)
+    public function __construct(array $using, array $methodCalls, array $createdIds = [])
     {
-        $validator = new Validator();
-        $validator->validate($data, "http://jmap.io/Request.json#");
+        // 1.1. Set used capabilities
+        $this->using = new Vector($using);
 
-        $this->using = new Vector($data->using);
-        // Sort the capability identifiers to canonicalize them for e.g. caching
+        // 1.2. Sort the capability identifiers to canonicalize them for e.g. caching
         $this->using->sort();
 
-        if (count($data->methodCalls) > $maxCallsInRequest) {
-            throw new OverflowException("The maximum number of " . $maxCallsInRequest . " method calls got exceeded.");
-        }
-
-        // Turn method calls into Invocation instances
-        $this->methodCalls = (new Vector($data->methodCalls))->map(function ($methodCall) {
+        // 2. Turn method calls into Invocation instances
+        $this->methodCalls = (new Vector($methodCalls))->map(function ($methodCall) {
             return new Invocation($methodCall[0], (array) $methodCall[1], $methodCall[2]);
         });
 
-        $this->createdIds = new Map($data->createdIds ?? []);
+        // 3. Set created IDs
+        $this->createdIds = new Map($createdIds);
     }
 
     /**

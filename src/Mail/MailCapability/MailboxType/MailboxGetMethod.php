@@ -3,16 +3,13 @@
 namespace barnslig\JMAP\Mail\MailCapability\MailboxType;
 
 use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Method;
 use barnslig\JMAP\Core\Methods\GetMethod;
-use barnslig\JMAP\Core\Session;
+use barnslig\JMAP\Core\RequestContext;
 
 class MailboxGetMethod extends GetMethod
 {
-    public function handle(Invocation $request, Session $session): Invocation
+    public function handle(Invocation $request, RequestContext $context): Invocation
     {
-        parent::handle($request, $session);
-
-        return $request;
+        return parent::handle($request, $context);
     }
 }
