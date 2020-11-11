@@ -1,6 +1,6 @@
 <?php
 
-namespace barnslig\JMAP\Core\Schemas;
+namespace Barnslig\Jmap\Core\Schemas;
 
 /**
  * Exception that is raised when a schema validation fails

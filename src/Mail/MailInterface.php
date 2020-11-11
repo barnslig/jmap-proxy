@@ -1,6 +1,6 @@
 <?php
 
-namespace barnslig\JMAP\Mail;
+namespace Barnslig\Jmap\Mail;
 
 interface MailInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace JP\Tests\JMAP;
+namespace Barnslig\Jmap\Tests;
 
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Request;
-use barnslig\JMAP\Core\Schemas\ValidationException;
+use Barnslig\Jmap\Core\Invocation;
+use Barnslig\Jmap\Core\Request;
+use Barnslig\Jmap\Core\Schemas\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 final class RequestTest extends TestCase

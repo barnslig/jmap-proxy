@@ -6,7 +6,7 @@ Check out the PHPDocs!
 
 ## Usage
 
-The main entry point is an instance of the class `barnslig\JMAP\Core\JMAP`. It exposes multiple [PSR-15](https://www.php-fig.org/psr/psr-15/) compliant HTTP Server Request Handlers:
+The main entry point is an instance of the class `Barnslig\Jmap\Core\JMAP`. It exposes multiple [PSR-15](https://www.php-fig.org/psr/psr-15/) compliant HTTP Server Request Handlers:
 
 -   `JMAP::sessionHandler`
     -   Implements the [JMAP Session Resource](https://tools.ietf.org/html/rfc8620#section-2)

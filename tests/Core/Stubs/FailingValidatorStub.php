@@ -1,9 +1,9 @@
 <?php
 
-namespace barnslig\JMAP\Tests\Core\Stubs;
+namespace Barnslig\Jmap\Tests\Core\Stubs;
 
-use barnslig\JMAP\Core\Schemas\ValidationException;
-use barnslig\JMAP\Core\Schemas\ValidatorInterface;
+use Barnslig\Jmap\Core\Schemas\ValidationException;
+use Barnslig\Jmap\Core\Schemas\ValidatorInterface;
 
 /**
  * A schema validator that is always failing

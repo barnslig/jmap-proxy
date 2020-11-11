@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Core\RequestErrors;
+namespace Barnslig\Jmap\Core\RequestErrors;
 
-use barnslig\JMAP\Core\RequestError;
+use Barnslig\Jmap\Core\RequestError;
 
 /**
  * Not JSON Error

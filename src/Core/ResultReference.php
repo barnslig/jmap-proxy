@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Core;
+namespace Barnslig\Jmap\Core;
 
-use barnslig\JMAP\Core\Exceptions\MethodInvocationException;
+use Barnslig\Jmap\Core\Exceptions\MethodInvocationException;
 use Ds\Vector;
 
 /**

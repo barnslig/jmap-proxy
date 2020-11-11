@@ -1,12 +1,12 @@
 <?php
 
-namespace barnslig\JMAP\Tests\Core\Controllers;
+namespace Barnslig\Jmap\Tests\Core\Controllers;
 
-use barnslig\JMAP\Core\Controllers\SessionController;
-use barnslig\JMAP\Core\RequestContext;
-use barnslig\JMAP\Core\Schemas\ValidatorInterface;
-use barnslig\JMAP\Core\Session;
-use barnslig\JMAP\Tests\Core\Stubs\PassingValidatorStub;
+use Barnslig\Jmap\Core\Controllers\SessionController;
+use Barnslig\Jmap\Core\RequestContext;
+use Barnslig\Jmap\Core\Schemas\ValidatorInterface;
+use Barnslig\Jmap\Core\Session;
+use Barnslig\Jmap\Tests\Core\Stubs\PassingValidatorStub;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 

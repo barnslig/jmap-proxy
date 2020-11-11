@@ -1,11 +1,11 @@
 <?php
 
-namespace barnslig\JMAP\Tests\Core;
+namespace Barnslig\Jmap\Tests\Core;
 
-use barnslig\JMAP\Core\Capabilities\CoreCapability\CoreType\CoreEchoMethod;
-use barnslig\JMAP\Core\Capability;
-use barnslig\JMAP\Core\Exceptions\UnknownCapabilityException;
-use barnslig\JMAP\Core\Session;
+use Barnslig\Jmap\Core\Capabilities\CoreCapability\CoreType\CoreEchoMethod;
+use Barnslig\Jmap\Core\Capability;
+use Barnslig\Jmap\Core\Exceptions\UnknownCapabilityException;
+use Barnslig\Jmap\Core\Session;
 use Ds\Map;
 use Ds\Vector;
 use PHPUnit\Framework\TestCase;

@@ -1,10 +1,10 @@
 <?php
 
-namespace barnslig\JMAP\Core\Capabilities\CoreCapability\CoreType;
+namespace Barnslig\Jmap\Core\Capabilities\CoreCapability\CoreType;
 
-use barnslig\JMAP\Core\Invocation;
-use barnslig\JMAP\Core\Method;
-use barnslig\JMAP\Core\RequestContext;
+use Barnslig\Jmap\Core\Invocation;
+use Barnslig\Jmap\Core\Method;
+use Barnslig\Jmap\Core\RequestContext;
 
 class CoreEchoMethod implements Method
 {

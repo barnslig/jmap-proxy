@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Tests\Core\Stubs;
+namespace Barnslig\Jmap\Tests\Core\Stubs;
 
-use barnslig\JMAP\Core\Schemas\ValidatorInterface;
+use Barnslig\Jmap\Core\Schemas\ValidatorInterface;
 
 /**
  * A schema validator that is always passing

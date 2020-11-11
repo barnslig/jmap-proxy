@@ -1,8 +1,8 @@
 <?php
 
-namespace barnslig\JMAP\Core\Controllers;
+namespace Barnslig\Jmap\Core\Controllers;
 
-use barnslig\JMAP\Core\RequestContext;
+use Barnslig\Jmap\Core\RequestContext;
 use Psr\Http\Server\RequestHandlerInterface;
 
 abstract class AbstractController implements RequestHandlerInterface
