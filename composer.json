@@ -1,5 +1,6 @@
 {
   "name": "barnslig/jmap-proxy",
+  "description": "Framework to implement a JMAP (RFC 8620) server.",
   "type": "project",
   "license": "MIT",
   "authors": [
