@@ -10,7 +10,7 @@ abstract class QueryMethod implements Method
 {
     public function handle(Invocation $request, RequestContext $context): Invocation
     {
-        $context->getValidator()->validate($request, "http://jmap.io/methods/query.json#");
+        $context->getValidator()->validate($request->getArguments(), "http://jmap.io/methods/query.json#");
 
         return $request;
     }

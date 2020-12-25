@@ -10,7 +10,7 @@ abstract class GetMethod implements Method
 {
     public function handle(Invocation $request, RequestContext $context): Invocation
     {
-        $context->getValidator()->validate($request, "http://jmap.io/methods/get.json#");
+        $context->getValidator()->validate($request->getArguments(), "http://jmap.io/methods/get.json#");
 
         return $request;
     }
