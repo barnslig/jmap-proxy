@@ -12,6 +12,16 @@ namespace Barnslig\Jmap\Core;
 interface Method
 {
     /**
+     * Validate a response
+     *
+     * @param Invocation $request Request invocation
+     * @param RequestContext $context JMAP request context
+     * @throws \Barnslig\Jmap\Core\Schemas\ValidationException When the validation has failed
+     * @return void
+     */
+    public static function validate(Invocation $request, RequestContext $context): void;
+
+    /**
      * Invoke the method
      *
      * @param Invocation $request Request invocation

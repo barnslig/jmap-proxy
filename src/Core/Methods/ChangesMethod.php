@@ -8,10 +8,10 @@ use Barnslig\Jmap\Core\RequestContext;
 
 abstract class ChangesMethod implements Method
 {
-    public function handle(Invocation $request, RequestContext $context): Invocation
+    public static function validate(Invocation $request, RequestContext $context): void
     {
         $context->getValidator()->validate($request->getArguments(), "http://jmap.io/methods/changes.json#");
-
-        return $request;
     }
+
+    abstract public function handle(Invocation $request, RequestContext $context): Invocation;
 }

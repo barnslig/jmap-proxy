@@ -63,6 +63,7 @@ class ApiController extends AbstractController
 
             // 3. Execute the method
             $methodCallable = new $method();
+            $method::validate($methodCall, $this->getContext());
             $methodResponse = $methodCallable->handle($methodCall, $this->getContext());
         } catch (OutOfBoundsException $exception) {
             $methodResponse = $methodCall->withName("error")->withArguments(["type" => "unknownMethod"]);
