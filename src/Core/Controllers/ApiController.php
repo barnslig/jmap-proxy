@@ -34,7 +34,7 @@ class ApiController extends AbstractController
      */
     public static function parseJsonBody(ServerRequestInterface $request): object
     {
-        if ($request->getHeaderLine("Content-Type") !== "application/json") {
+        if (mb_strpos($request->getHeaderLine("Content-Type"), "application/json") !== 0) {
             throw new \RuntimeException("Wrong Content-Type");
         }
 
