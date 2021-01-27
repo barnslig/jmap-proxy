@@ -13,11 +13,14 @@
         },
         {
           "$ref": "http://jmap.io/methods/query.json#/definitions/FilterCondition"
+        },
+        {
+          "type": "null"
         }
       ]
     },
     "sort": {
-      "type": "array",
+      "type": ["array", "null"],
       "items": {
         "$ref": "http://jmap.io/methods/query.json#/definitions/Comparator"
       }
@@ -26,11 +29,11 @@
       "type": "string"
     },
     "maxChanges": {
-      "type": "integer",
+      "type": ["integer", "null"],
       "minimum": 0
     },
     "upToId": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "calculateTotal": {
       "type": "boolean",

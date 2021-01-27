@@ -20,14 +20,14 @@
           "default": 0
         },
         "anchor": {
-          "type": "string"
+          "type": ["string", "null"]
         },
         "anchorOffset": {
           "type": "integer",
           "default": 0
         },
         "limit": {
-          "type": "integer",
+          "type": ["integer", "null"],
           "minimum": 0
         },
         "calculateTotal": {
@@ -71,11 +71,12 @@
     "filter": {
       "oneOf": [
         { "$ref": "#/definitions/FilterOperator" },
-        { "$ref": "#/definitions/FilterCondition" }
+        { "$ref": "#/definitions/FilterCondition" },
+        { "type": "null" }
       ]
     },
     "sort": {
-      "type": "array",
+      "type": ["array", "null"],
       "items": {
         "$ref": "#/definitions/Comparator"
       }

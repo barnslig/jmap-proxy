@@ -7,13 +7,13 @@
       "type": "string"
     },
     "ids": {
-      "type": "array",
+      "type": ["array", "null"],
       "items": {
         "type": "string"
       }
     },
     "properties": {
-      "type": "array",
+      "type": ["array", "null"],
       "items": {
         "type": "string"
       }

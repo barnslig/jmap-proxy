@@ -7,13 +7,13 @@
       "type": "string"
     },
     "ifFromInState": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "accountId": {
       "type": "string"
     },
     "ifInState": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "create": {
       "type": "object"
@@ -23,7 +23,7 @@
       "default": false
     },
     "destroyFromIfInState": {
-      "type": "string"
+      "type": ["string", "null"]
     }
   },
   "required": ["fromAccountId", "accountId"]

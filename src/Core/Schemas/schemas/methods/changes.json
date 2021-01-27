@@ -10,7 +10,7 @@
       "type": "string"
     },
     "maxChanges": {
-      "type": "integer",
+      "type": ["integer", "null"],
       "minimum": 0
     }
   },

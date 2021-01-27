@@ -7,16 +7,16 @@
       "type": "string"
     },
     "ifInState": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "create": {
-      "type": "object"
+      "type": ["object", "null"]
     },
     "update": {
-      "type": "object"
+      "type": ["object", "null"]
     },
     "destroy": {
-      "type": "array",
+      "type": ["array", "null"],
       "items": {
         "type": "string"
       }
